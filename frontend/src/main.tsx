@@ -7,7 +7,6 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { setupEru } from '@dolanske/eru'
 import RouteRecipes, { routeRecipesLoader } from './routes/RouteRecipes.tsx'
 import RouteError from './routes/RouteError.tsx'
 import RouteRecipe, { routeRecipeLoader } from './routes/RouteRecipe.tsx'

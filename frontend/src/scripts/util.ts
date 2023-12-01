@@ -49,6 +49,8 @@ export function searchInStr(match: string | string[], search: string) {
   return split.every(s => joint.toLowerCase().includes(s.toLowerCase()))
 }
 
+// Detect if value is primitive
+
 // Some basic time utilities. Converts the provided date type to milliseconds
 export const seconds = (amount: number) => amount * 1000
 export const minutes = (amount: number) => seconds(amount * 60)

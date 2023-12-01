@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { useId, useMemo } from 'react'
 import { classes } from '../../scripts/util'
+import IconSearch from '../icons/IconSearch'
 
 interface Props {
   value: string
@@ -9,14 +10,15 @@ interface Props {
   label?: string | ReactNode
   placeholder?: string
   type?: string
+  search?: boolean
 }
 
-export default function TextInput({ value, setter, name, label, placeholder = '', type = 'text' }: Props) {
+export default function TextInput({ value, setter, name, label, placeholder = '', type = 'text', search = false }: Props) {
   const formItemId = useId()
   const hasInput = useMemo(() => value.length > 0, [value])
 
   return (
-    <div className="form-item text">
+    <div className={classes(['form-item text', { search }])}>
       {
         label && (
           <label htmlFor={formItemId}>
@@ -26,6 +28,8 @@ export default function TextInput({ value, setter, name, label, placeholder = ''
           </label>
         )
       }
+
+      {search && <span className="icon-search"><IconSearch /></span>}
 
       <input
         className={classes({ 'has-input': hasInput })}

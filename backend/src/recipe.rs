@@ -240,8 +240,8 @@ pub async fn post(
         .get_result(&mut *conn)
         .context("Failed to insert recipe")?;
 
-    insert_ingredients_associations(&mut *conn, metadata.id, &req.ingredients)?;
-    insert_steps(&mut *conn, metadata.id, &req.steps)?;
+    insert_ingredients_associations(&mut conn, metadata.id, &req.ingredients)?;
+    insert_steps(&mut conn, metadata.id, &req.steps)?;
 
     debug!("Inserted recipe successfully");
 
@@ -350,7 +350,7 @@ pub async fn put(
         .execute(&mut *conn)
         .context("Failed to delete ingredients")?;
 
-        insert_ingredients_associations(&mut *conn, id, &ingredients)?;
+        insert_ingredients_associations(&mut conn, id, &ingredients)?;
     }
 
     if let Some(steps) = req.steps {
@@ -358,7 +358,7 @@ pub async fn put(
             .execute(&mut *conn)
             .context("Failed to delete a steps")?;
 
-        insert_steps(&mut *conn, id, &steps)?;
+        insert_steps(&mut conn, id, &steps)?;
     }
 
     debug!("Updated recipe successfully");
@@ -374,7 +374,7 @@ fn insert_ingredients_associations(
     diesel::insert_into(recipe_ingredient_associations::table)
         .values(
             ingredients
-                .into_iter()
+                .iter()
                 .enumerate()
                 .map(|(idx, ingredient)| {
                     (
@@ -395,7 +395,7 @@ fn insert_steps(conn: &mut SqliteConnection, recipe_id: i64, steps: &[Step]) -> 
     diesel::insert_into(steps::table)
         .values(
             steps
-                .into_iter()
+                .iter()
                 .enumerate()
                 .map(|(idx, step)| {
                     (

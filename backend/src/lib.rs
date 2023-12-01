@@ -42,6 +42,11 @@ pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!();
         recipe::Recipe,
         recipe::PostRecipe,
         recipe::PutRecipe,
+        recipe::Step,
+        recipe::PostRecipeMetadata,
+        recipe::PutRecipeMetadata,
+        recipe::PostIngredientAssociation,
+        recipe::UsedIngredient,
         ingredient::Ingredient,
         ingredient::PostIngredient,
         ingredient::PutIngredient

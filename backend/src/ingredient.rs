@@ -97,16 +97,25 @@ pub struct PostIngredient {
     pub description: Option<String>,
 
     #[ts(skip)]
+    #[serde(skip, default = "placeholder_user")]
+    pub author: String,
+
+    #[ts(skip)]
     #[serde(skip, default = "unix_timestamp")]
     pub created_at: i64,
+}
+
+pub fn placeholder_user() -> String {
+    String::from("Placeholder")
 }
 
 /// Post an ingredient
 #[utoipa::path(
     post,
     path = "/api/ingredient",
+    request_body = PostIngredient,
     responses(
-        (status = 200, description = "Posted an ingredient", body = [PostIngredient]),
+        (status = 200, description = "Posted an ingredient", body = Ingredient),
     )
 )]
 
@@ -117,7 +126,6 @@ pub async fn post(
     let Json(req) = req?;
     let mut conn = pool.get().await.expect("can connect to sqlite");
 
-    // Insert into db
     let ingredient = diesel::insert_into(ingredients::table)
         .values(&req)
         .get_result(&mut *conn)
@@ -168,7 +176,7 @@ pub struct PutIngredient {
     put,
     path = "/api/ingredient/{id}",
     responses(
-        (status = 200, description = "Updated an ingredient", body = [Ingredient]),
+        (status = 200, description = "Updated an ingredient", body = Ingredient),
     ),
     params(
         ("id" = i64, Path, description = "Identifier of the Ingredient"),

@@ -295,6 +295,17 @@ pub struct PutRecipeMetadata {
     pub wait_time: Option<i64>,
 }
 
+impl PutRecipeMetadata {
+    fn has_changes(&self) -> bool {
+        self.name.is_some()
+            || self.description.is_some()
+            || self.image_url.is_some()
+            || self.servings.is_some()
+            || self.work_time.is_some()
+            || self.wait_time.is_some()
+    }
+}
+
 #[derive(Debug, Deserialize, TS, ToSchema)]
 #[ts(export, export_to = "../frontend/src/types/")]
 pub struct PutRecipe {
@@ -310,7 +321,7 @@ pub struct PutRecipe {
     path = "/api/recipe/{id}",
     request_body = PutRecipe,
     responses(
-        (status = 200, description = "Updated an recipe", body = RecipeMetadata),
+        (status = 200, description = "Updated an recipe"),
     ),
     params(
         ("id" = i64, Path, description = "Identifier of the recipe"),
@@ -320,36 +331,39 @@ pub async fn put(
     Path(id): Path<i64>,
     Extension(pool): Extension<SqlitePool>,
     req: Result<Json<PutRecipe>, JsonRejection>,
-) -> Result<Json<RecipeMetadata>, Error> {
+) -> Result<(), Error> {
     let Json(req) = req?;
     let mut conn = pool.get().await.expect("can connect to sqlite");
 
-    let metadata: RecipeMetadata =
+    if req.metadata.has_changes() {
         diesel::update(recipes::dsl::recipes.filter(recipes::dsl::id.eq(id)))
             .set(&req.metadata)
-            .get_result(&mut *conn)
+            .execute(&mut *conn)
             .context("Failed to update recipe")?;
+    }
 
     if let Some(ingredients) = req.ingredients {
         diesel::delete(
             recipe_ingredient_associations::dsl::recipe_ingredient_associations
-                .filter(recipe_ingredient_associations::dsl::recipe_id.eq(metadata.id)),
+                .filter(recipe_ingredient_associations::dsl::recipe_id.eq(id)),
         )
         .execute(&mut *conn)
         .context("Failed to delete ingredients")?;
 
-        insert_ingredients_associations(&mut *conn, metadata.id, &ingredients)?;
+        insert_ingredients_associations(&mut *conn, id, &ingredients)?;
     }
 
     if let Some(steps) = req.steps {
-        diesel::delete(steps::dsl::steps.filter(steps::dsl::recipe_id.eq(metadata.id)))
+        diesel::delete(steps::dsl::steps.filter(steps::dsl::recipe_id.eq(id)))
             .execute(&mut *conn)
             .context("Failed to delete a steps")?;
 
-        insert_steps(&mut *conn, metadata.id, &steps)?;
+        insert_steps(&mut *conn, id, &steps)?;
     }
 
-    Ok(Json(metadata))
+    debug!("Updated recipe successfully");
+
+    Ok(())
 }
 
 fn insert_ingredients_associations(

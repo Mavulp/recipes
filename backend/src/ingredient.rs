@@ -35,7 +35,7 @@ pub struct Ingredient {
 /// Get a list of all ingredients
 #[utoipa::path(
     get,
-    path = "/api/ingredients",
+    path = "/api/ingredient",
     responses(
         (status = 200, description = "Ingredients are returned", body = [Ingredient]),
     )

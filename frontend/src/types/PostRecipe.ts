@@ -5,5 +5,6 @@ export interface PostRecipe {
   description: string | null;
   image_url: string | null;
   servings: bigint | null;
-  time_needed: bigint | null;
+  work_time: bigint | null;
+  wait_time: bigint | null;
 }

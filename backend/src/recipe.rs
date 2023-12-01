@@ -1,4 +1,3 @@
-use crate::ingredient::Ingredient;
 use crate::util::unix_timestamp;
 use anyhow::Context;
 use axum::extract::rejection::JsonRejection;
@@ -11,11 +10,11 @@ use ts_rs::TS;
 use utoipa::ToSchema;
 
 use crate::error::Error;
-use crate::schema::{recipes, steps};
+use crate::schema::recipes;
 use crate::SqlitePool;
 
 #[derive(Debug, Serialize, TS, ToSchema, Queryable)]
-#[ts(export, export_to = "../frontend/src/")]
+#[ts(export, export_to = "../frontend/src/types/")]
 pub struct Recipe {
     #[schema(example = 1)]
     pub id: i64,
@@ -36,7 +35,7 @@ pub struct Recipe {
     pub work_time: Option<i64>,
 
     #[schema(example = 30)]
-    pub wait_needed: Option<i64>,
+    pub wait_time: Option<i64>,
 
     #[schema(example = "Alice")]
     pub author: String,
@@ -53,15 +52,17 @@ pub struct Recipe {
         (status = 200, description = "Recipes are returned", body = [Recipe]),
     )
 )]
-// Return all recipes
 pub async fn get_all(Extension(pool): Extension<SqlitePool>) -> Result<Json<Vec<Recipe>>, Error> {
     let mut conn = pool.get().await.expect("can connect to sqlite");
+
     debug!("Loading all recipes");
+
     let recipes = recipes::dsl::recipes
         .load(&mut *conn)
         .context("Failed to load recipes")?;
 
     debug!(count = recipes.len(), "Returning recipes");
+
     Ok(Json(recipes))
 }
 
@@ -99,7 +100,7 @@ pub async fn get_by_id(
 
 // Post recipe
 #[derive(Debug, Deserialize, TS, ToSchema, Insertable)]
-#[ts(export, export_to = "../frontend/src/")]
+#[ts(export, export_to = "../frontend/src/types/")]
 #[diesel(table_name = recipes)]
 pub struct PostRecipe {
     #[schema(example = "Tomato Soup")]
@@ -186,7 +187,7 @@ pub async fn delete_by_id(
 
 // Put recipe
 #[derive(Debug, Deserialize, TS, ToSchema, AsChangeset)]
-#[ts(export, export_to = "../frontend/src/")]
+#[ts(export, export_to = "../frontend/src/types/")]
 #[diesel(table_name = recipes)]
 pub struct PutRecipe {
     #[schema(example = "Tomato Soup")]

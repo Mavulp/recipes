@@ -14,7 +14,7 @@ use crate::schema::ingredients;
 use crate::SqlitePool;
 
 #[derive(Debug, Serialize, TS, ToSchema, Queryable, Insertable)]
-#[ts(export, export_to = "../frontend/src/")]
+#[ts(export, export_to = "../frontend/src/types/")]
 pub struct Ingredient {
     #[schema(example = 1)]
     pub id: i64,
@@ -87,7 +87,7 @@ pub async fn get_by_id(
 
 // Post ingredient
 #[derive(Debug, Deserialize, TS, ToSchema, Insertable)]
-#[ts(export, export_to = "../frontend/src/")]
+#[ts(export, export_to = "../frontend/src/types/")]
 #[diesel(table_name = ingredients)]
 pub struct PostIngredient {
     #[schema(example = "Tomato")]
@@ -154,7 +154,7 @@ pub async fn delete_by_id(
 
 // Put ingredient
 #[derive(Debug, Deserialize, TS, ToSchema, AsChangeset)]
-#[ts(export, export_to = "../frontend/src/")]
+#[ts(export, export_to = "../frontend/src/types/")]
 #[diesel(table_name = ingredients)]
 pub struct PutIngredient {
     #[schema(example = "Tomato")]

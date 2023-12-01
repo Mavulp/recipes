@@ -121,19 +121,27 @@ pub struct PostRecipe {
     pub wait_time: Option<i64>,
 
     #[ts(skip)]
+    #[serde(skip, default = "placeholder_user")]
+    pub author: String,
+
+    #[ts(skip)]
     #[serde(skip, default = "unix_timestamp")]
     pub created_at: i64,
+}
+
+pub fn placeholder_user() -> String {
+    String::from("Placeholder")
 }
 
 /// Post an recipe
 #[utoipa::path(
     post,
     path = "/api/recipe",
+    request_body = PostRecipe,
     responses(
-        (status = 200, description = "Posted an recipe", body = [PostRecipe]),
+        (status = 200, description = "Posted an recipe", body = PostRecipe),
     )
 )]
-
 pub async fn post(
     Extension(pool): Extension<SqlitePool>,
     req: Result<Json<PostRecipe>, JsonRejection>,
@@ -155,17 +163,20 @@ pub async fn post(
 // Delete recipe
 #[utoipa::path(
     delete,
-    path = "/api/recipe",
+    path = "/api/recipe/{id}",
     responses(
         (status = 200, description = "Deleted an recipe"),
+    ),
+    params(
+        ("id" = i64, Path, description = "Identifier of the recipe"),
     )
 )]
-
 pub async fn delete_by_id(
     Path(id): Path<i64>,
     Extension(pool): Extension<SqlitePool>,
 ) -> Result<(), Error> {
     let mut conn = pool.get().await.expect("can connect to sqlite");
+
     diesel::delete(recipes::dsl::recipes.filter(recipes::dsl::id.eq(id)))
         .execute(&mut *conn)
         .context("Failed to delete a recipe")?;
@@ -200,11 +211,14 @@ pub struct PutRecipe {
 #[utoipa::path(
     put,
     path = "/api/recipe/{id}",
+    request_body = PutRecipe,
     responses(
-        (status = 200, description = "Updated an recipe", body = [Recipe]),
+        (status = 200, description = "Updated an recipe", body = Recipe),
+    ),
+    params(
+        ("id" = i64, Path, description = "Identifier of the recipe"),
     )
 )]
-
 pub async fn put(
     Path(id): Path<i64>,
     Extension(pool): Extension<SqlitePool>,

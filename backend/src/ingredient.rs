@@ -45,6 +45,7 @@ pub async fn get_all(
     Extension(pool): Extension<SqlitePool>,
 ) -> Result<Json<Vec<Ingredient>>, Error> {
     let mut conn = pool.get().await.expect("can connect to sqlite");
+
     debug!("Loading all ingredients");
     let ingredients = ingredients::dsl::ingredients
         .load(&mut *conn)
@@ -54,7 +55,7 @@ pub async fn get_all(
     Ok(Json(ingredients))
 }
 
-/// Get a ingredient by its id
+/// Get an ingredient by its id
 #[utoipa::path(
     get,
     path = "/api/ingredient/{id}",
@@ -66,8 +67,6 @@ pub async fn get_all(
         ("id" = i64, Path, description = "Identifier of the Ingredient"),
     )
 )]
-
-// Return ingredient by its id
 pub async fn get_by_id(
     Path(id): Path<i64>,
     Extension(pool): Extension<SqlitePool>,

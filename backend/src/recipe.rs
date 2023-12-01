@@ -15,7 +15,7 @@ use crate::schema::{recipes, steps};
 use crate::SqlitePool;
 
 #[derive(Debug, Serialize, TS, ToSchema, Queryable)]
-#[ts(export, export_to = "dist/")]
+#[ts(export, export_to = "../frontend/types/")]
 pub struct Recipe {
     #[schema(example = 1)]
     pub id: i64,
@@ -96,7 +96,7 @@ pub async fn get_by_id(
 
 // Post recipe
 #[derive(Debug, Deserialize, TS, ToSchema, Insertable)]
-#[ts(export, export_to = "dist/")]
+#[ts(export, export_to = "../frontend/types/")]
 #[diesel(table_name = recipes)]
 pub struct PostRecipe {
     #[schema(example = "Tomato Soup")]
@@ -169,7 +169,7 @@ pub async fn delete_by_id(
 
 // Put recipe
 #[derive(Debug, Deserialize, TS, ToSchema, AsChangeset)]
-#[ts(export, export_to = "dist/")]
+#[ts(export, export_to = "../frontend/types/")]
 #[diesel(table_name = recipes)]
 pub struct PutRecipe {
     #[schema(example = "Tomato Soup")]

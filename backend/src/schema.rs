@@ -44,7 +44,8 @@ diesel::table! {
         description -> Nullable<Text>,
         image_url -> Nullable<Text>,
         servings -> Nullable<Integer>,
-        time_needed -> Nullable<Integer>,
+        work_time -> Nullable<Integer>,
+        wait_time -> Nullable<Integer>,
         author -> Text,
         created_at -> Integer,
     }

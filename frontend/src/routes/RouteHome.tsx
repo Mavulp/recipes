@@ -1,28 +1,26 @@
-import { Await, defer, useLoaderData, useRouteLoaderData } from 'react-router-dom'
+import { Await, defer, useLoaderData } from 'react-router-dom'
 import { Suspense } from 'react'
+import type { Recipe } from '../api/recipes'
 import { recipes } from '../api/recipes'
-import { stringify } from '../scripts/util'
-import type { LoaderData } from '../scripts/type-utils'
 import { SimpleLoading } from '../components/loading/SimpleLoading'
+import { RecipeItem } from '../components/recipes/RecipeItem'
 
 export default function RouteHome() {
-  // TODO: how to type this?
-  const { data } = useLoaderData() as LoaderData<typeof routeHomeLoader>
+  // TODO: this is the only way to type this as I found out
+  const { data } = useLoaderData() as { data: Recipe }
 
   return (
-    <div>
+    <div className="route route-home">
       <h1>Recipes</h1>
       <Suspense fallback={<SimpleLoading label="Loading All Recipes" />}>
         <Await resolve={data}>
-          <pre>{stringify(data)}</pre>
+          {data => data.results.map((result: Recipe['results'][number]) => <RecipeItem key={result.name} data={result} />) }
         </Await>
       </Suspense>
     </div>
   )
 }
 
-export function routeHomeLoader() {
-  return defer({
-    data: recipes.get('/people'),
-  })
+export async function routeHomeLoader() {
+  return defer({ data: recipes.get<Recipe>('/people') })
 }

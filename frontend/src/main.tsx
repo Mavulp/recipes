@@ -15,18 +15,19 @@ const router = createBrowserRouter([
     element: <RouteHome />,
     loader: routeHomeLoader,
     errorElement: <RouteError />,
-    children: [
-      {
-        path: 'recipe/:recipeId',
-        element: <RouteRecipe />,
-        loader: routeRecipeLoader,
-      },
-    ],
+  },
+  {
+    path: '/recipe/:recipeId',
+    element: <RouteRecipe />,
+    loader: routeRecipeLoader,
+    errorElement: <RouteError />,
   },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <div className="container">
+      <RouterProvider router={router} />
+    </div>
   </React.StrictMode>,
 )

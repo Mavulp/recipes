@@ -13,8 +13,8 @@ export function RecipeItem({ data }: Props) {
   data.id = 1
 
   return (
-    <Link className="recipe-item" to={`recipe/${data.id}`}>
-      <strong>{data.name}</strong>
+    <Link className="recipe-item" to={`/recipe/${data.id}`}>
+      <strong className="recipe-name">{data.name}</strong>
     </Link>
   )
 }

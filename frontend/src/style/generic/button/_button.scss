@@ -5,12 +5,12 @@
   @include font(500);
   @include t();
   @include flex(5px, center);
-  border-radius: var(--radius-tn);
+  // border-radius: var(--radius-tn);
   height: 36px;
   line-height: 36px;
   padding: 0 15px;
   font-size: 1.2rem;
-  color: var(--color-text-light);
+  color: var(--color-text);
   text-decoration: none;
   text-transform: uppercase;
 
@@ -27,5 +27,25 @@
   &:hover {
     color: var(--color-text);
     background-color: var(--color-bg-light);
+  }
+}
+
+
+.button-hover {
+  position: relative;
+
+  &:after {
+    @include t();
+    content: "";
+    position: absolute;
+    inset: -8px -12px;
+    z-index: -1;
+  }
+
+  &:hover {
+    &:after {
+      opacity: 1;
+      background-color: var(--color-bg-dark-hover);
+    }
   }
 }

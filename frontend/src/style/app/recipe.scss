@@ -1,13 +1,13 @@
 .recipe-item {
   width: 100%;
   max-width: 720px;
-  // border: 1px solid var(--color-text);
-  border-bottom: 1px solid var(--color-text);
+  border: 1px solid var(--color-text);
   padding: 2em;
   margin-bottom: 10px;
+  text-decoration: none;
+  color: var(--color-text);
 
-  &:last-of-type {
-    border-bottom: 0;
-    margin-bottom: 0;
+  .recipe-name {
+    font-size: 2rem;
   }
 }

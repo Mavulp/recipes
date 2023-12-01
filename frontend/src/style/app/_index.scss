@@ -3,6 +3,9 @@
 
 @import "./router";
 @import "./recipe";
+@import "./navigation";
+@import "./filters";
+
 
 // Styles shared across the entire app are defined here,
 // otherwise a nested folders should be created to house the more specific styles.

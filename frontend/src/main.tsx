@@ -2,32 +2,64 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './style/index.scss'
 import {
+  Outlet,
   RouterProvider,
   createBrowserRouter,
 } from 'react-router-dom'
-import RouteHome, { routeHomeLoader } from './routes/RouteHome.tsx'
-import { RouteError } from './routes/RouteError.tsx'
+import { Provider } from 'react-redux'
+import { setupEru } from '@dolanske/eru'
+import RouteRecipes, { routeRecipesLoader } from './routes/RouteRecipes.tsx'
+import RouteError from './routes/RouteError.tsx'
 import RouteRecipe, { routeRecipeLoader } from './routes/RouteRecipe.tsx'
+import { Navigation } from './components/navigation/Navigation.tsx'
+import RouteCreate from './routes/RouteCreate.tsx'
+import { store } from './store/index.ts'
+
+// Root wrapper around the router views
+// Anything that should be persistent between routes,
+// should be placed above or bellow the <Outlet /> component
+function App() {
+  return (
+    <>
+      <Navigation />
+      <div className="container">
+        <Outlet />
+      </div>
+    </>
+  )
+}
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <RouteHome />,
-    loader: routeHomeLoader,
+    element: <App />,
     errorElement: <RouteError />,
-  },
-  {
-    path: '/recipe/:recipeId',
-    element: <RouteRecipe />,
-    loader: routeRecipeLoader,
-    errorElement: <RouteError />,
+    children: [
+      {
+        path: 'recipes',
+        element: <RouteRecipes />,
+        loader: routeRecipesLoader,
+      },
+      {
+        path: 'recipe/:recipeId',
+        element: <RouteRecipe />,
+        loader: routeRecipeLoader,
+      },
+      {
+        path: 'create',
+        element: <RouteCreate />,
+      },
+    ],
   },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <div className="container">
-      <RouterProvider router={router} />
-    </div>
+    <Provider store={store}>
+      <RouterProvider
+        router={router}
+        fallbackElement={<RouteError />}
+      />
+    </Provider>
   </React.StrictMode>,
 )

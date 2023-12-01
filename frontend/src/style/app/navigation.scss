@@ -1,0 +1,58 @@
+header.main-navigation {
+  @include flex();
+  padding: 3rem 6em;
+  margin: 0 1em;
+
+  .logo-wrap {
+    @include flex(8px);
+
+    img {
+      height: 20px;
+    }
+
+    span {
+      @include font(400);
+      font-size: 2rem;
+    }
+  }
+
+  .padder {
+    width: 256px;
+  }
+
+  a {
+    @include font(400);
+    display: block;
+    font-size: 1.4rem;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  nav ul {
+    @include flex(4em);
+
+    li a {
+      position: relative;
+
+      &:after {
+        @include t();
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: -12px;
+        left: 0;
+        width: 0;
+
+        height: 1px;
+        background-color: var(--color-text);
+      }
+
+      &.active,
+      &:hover {
+        &:after {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

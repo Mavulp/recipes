@@ -1,11 +1,13 @@
-import { eru } from '@dolanske/eru'
+import { eru, setupEru } from '@dolanske/eru'
 
-export interface Recipe {
-  results: Array<{
-    id: number
-    name: string
-  }>
-}
+setupEru({
+  rootPath: 'https://recipes.hivecom.net/api',
+  headers: {
+    Accept: 'application/json',
+  },
+})
 
 // This is an API router for recipes
-export const recipes = eru('https://swapi.dev/api')
+export const recipes = eru('/recipe')
+export const ingredients = eru('/ingredients')
+export const user = eru('/user')

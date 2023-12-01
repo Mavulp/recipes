@@ -3,7 +3,7 @@ Generic dropdown styling, allowing you to al
 */
 
 .dropdown {
-  border-radius: var(--radius-sm);
+  // border-radius: var(--radius-sm);
   background-color: var(--color-bg);
   padding: 10px 0;
   z-index: 1000;
@@ -28,7 +28,6 @@ Generic dropdown styling, allowing you to al
     }
 
     svg {
-      // width: 16px;
       text-align: center;
       color: var(--color-accent);
     }

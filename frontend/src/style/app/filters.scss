@@ -1,0 +1,11 @@
+.filters {
+  @include flex(2em);
+  width: 100%;
+  margin-bottom: 4em;
+
+  .form-item {
+    &.text {
+      width: 512px;
+    }
+  }
+}

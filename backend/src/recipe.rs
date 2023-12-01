@@ -114,8 +114,11 @@ pub struct PostRecipe {
     #[schema(example = 5)]
     pub servings: Option<i64>,
 
+    #[schema(example = 10)]
+    pub work_time: Option<i64>,
+
     #[schema(example = 30)]
-    pub time_needed: Option<i64>,
+    pub wait_time: Option<i64>,
 
     #[ts(skip)]
     #[serde(skip, default = "unix_timestamp")]
@@ -191,7 +194,7 @@ pub struct PutRecipe {
     pub work_time: Option<i64>,
 
     #[schema(example = 30)]
-    pub wait_needed: Option<i64>,
+    pub wait_time: Option<i64>,
 }
 
 #[utoipa::path(

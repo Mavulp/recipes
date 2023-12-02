@@ -5,7 +5,7 @@ import { classes } from '../../scripts/util'
 /**
  * The usage works like this
  * {
- *    'Label 1': whateverHappens
+ *    'Label 1': whateverHappens()
  * }
  */
 interface Props {
@@ -17,8 +17,13 @@ interface Props {
 export default function SingleSelect({ options, children, selected }: Props) {
   const [open, setOpen] = useState(false)
 
+  function onSelect(fn: () => void) {
+    fn()
+    setOpen(false)
+  }
+
   return (
-    <>
+    <div className={classes(['dropdown-wrap', { 'has-selected': !!selected }])}>
       <button onClick={() => setOpen(!open)}>
         {children}
       </button>
@@ -30,8 +35,8 @@ export default function SingleSelect({ options, children, selected }: Props) {
             Object.entries(options).map(([label, handler]) => (
               <button
                 key={label}
-                onClick={() => handler()}
-                className={classes({ 'is-selected': selected === label })}
+                onClick={() => onSelect(handler)}
+                className={classes(['button', { 'is-selected': selected === label }])}
               >
                 {label}
               </button>
@@ -40,6 +45,6 @@ export default function SingleSelect({ options, children, selected }: Props) {
          </div>
        )
       }
-    </>
+    </div>
   )
 }

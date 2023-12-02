@@ -18,8 +18,8 @@ Available tooltip positions:
   &:before {
     @include t();
     @include font(400);
-    background-color: var(--color-bg-light-hover);
-    color: var(--color-text);
+    background-color: var(--color-text);
+    color: var(--color-bg);
 
     font-size: 1.3rem;
     position: absolute;

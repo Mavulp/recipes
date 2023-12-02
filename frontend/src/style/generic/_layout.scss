@@ -11,10 +11,18 @@ Utility layout classes
   &.right {
     justify-content: flex-end;
   }
+}
 
-  &.gap-8 {
-    gap: 10px;
-  }
+.gap-10 {
+  gap: 10px;
+}
+
+.gap-20 {
+  gap: 20px;
+}
+
+.gap-64 {
+  gap: 64px;
 }
 
 .flex-1 {
@@ -37,5 +45,13 @@ Utility layout classes
 
   &.c-small {
     max-width: 680px;
+  }
+}
+
+.grid {
+  display: grid;
+
+  &.col-2 {
+    grid-template-columns: 1fr 1fr;
   }
 }

@@ -13,6 +13,7 @@ textarea {
   line-height: 30px;
   padding: 0 10px;
   color: var(--color-text);
+  font-size: 1.3rem;
 
   &:focus {
     outline-width: 1px;
@@ -29,10 +30,10 @@ textarea {
   @include font(400);
   color: var(--color-text-lighter);
   opacity: 1;
+  font-size: 1.4rem;
 }
 
 .form-item {
-
   &:focus,
   &:hover {
     &.search .icon-search {
@@ -70,7 +71,7 @@ textarea {
   &.has-border {
     input,
     textarea {
-      outline-color: var(--color-border-light);
+      outline-color: var(--color-border);
       outline-width: 1px;
     }
 

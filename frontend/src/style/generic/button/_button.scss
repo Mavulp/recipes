@@ -5,7 +5,6 @@
   @include font(500);
   @include t();
   @include flex(5px, center);
-  // border-radius: var(--radius-tn);
   height: 36px;
   line-height: 36px;
   padding: 0 15px;
@@ -17,11 +16,16 @@
   svg {
     @include t();
     font-size: 1.4rem;
-    color: var(--color-text-light);
+    color: var(--color-text);
   }
 
   &:disabled {
     pointer-events: none !important;
+    color: var(--color-text-lighter);
+
+    svg {
+      color: var(--color-text-lighter);
+    }
   }
 
   &:hover {

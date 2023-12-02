@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
-import type { Recipe } from '../../types/Recipe'
+import type { RecipeMetadata } from '../../types/RecipeMetadata'
 
 interface Props {
-  data: Recipe
+  data: RecipeMetadata
 }
 
 /**
@@ -20,10 +20,6 @@ export function RecipeItem({ data }: Props) {
       <div className="item-info">
         <strong className="recipe-name">{data.name}</strong>
         { data.description && <p className="recipe-desc">{data.description}</p> }
-        {/* <div className="flex-1" />
-        <ul>
-          <li>Vegan</li>
-        </ul> */}
       </div>
     </Link>
   )

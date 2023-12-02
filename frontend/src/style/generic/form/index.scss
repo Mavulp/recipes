@@ -22,8 +22,9 @@
     @include font(400);
     display: block;
     margin-bottom: 5px;
-    font-size: 1.1rem;
-    color: var(--color-text-light);
+    font-size: 1.2rem;
+    color: var(--color-text);
+    text-align: left;
   }
 }
 

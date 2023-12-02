@@ -1,0 +1,189 @@
+.route-create {
+  .grid > div {
+    display: block;
+    position: relative;
+  }
+
+  h2 {
+    margin-bottom: 16px;
+    font-size: 2.4rem;
+
+    &:has(+ p) {
+      margin-bottom: 8px;
+    }
+  }
+
+  h2 + p {
+    font-size: 1.6rem;
+    margin-bottom: 32px;
+  }
+
+  .col {
+    display: block;
+  }
+
+  .btn-add {
+    @include font(400);
+    margin-top: 16px;
+    grid-area: save;
+    height: 40px;
+    width: 100%;
+
+    &.offset {
+      margin-left: 64px;
+      width: calc(100% - 64px);
+    }
+  }
+
+  .form {
+    width: 100%;
+    max-width: 50vw;
+    margin-bottom: 64px;
+  }
+
+  .form-item {
+    margin-bottom: -1px;
+    border: 1px solid var(--color-border);
+    z-index: 5;
+    padding: 10px;
+
+    &:has(textarea:not(:placeholder-shown)),
+    &:has(input:not(:placeholder-shown)) {
+      border-color: var(--color-text);
+    }
+  }
+
+  input, textarea {
+    min-height: 40px;
+    font-size: 1.6rem;
+    border-radius: 8px;
+  }
+
+  textarea {
+    transition: none;
+    min-height: 192px;
+    resize: vertical;
+  }
+
+  .small-info {
+    @include grid(0, 3);
+
+    .form-item {
+      margin: 0;
+
+      &:not(:last-of-type) {
+        border-right: none;
+      }
+    }
+  }
+
+  .image-preview {
+    position: relative;
+
+    input {
+      padding-right: 80px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .preview {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      z-index: 5;
+      overflow: hidden;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+  }
+
+  .ingredient-form {
+    display: grid;
+    grid-template:  "input1 input2 input3"  "save save save";
+    grid-auto-flow: column;
+    position: relative;
+
+    & > div {
+      &.dropdown-wrap > button .form-item {
+        border-right: none;
+
+        input {
+          pointer-events: none !important;
+        }
+      }
+
+      &:nth-child(1) {
+        grid-area: input1;
+
+        &.has-selected .form-item {
+          border-color: var(--color-text);
+        }
+      }
+  
+      &:nth-child(2) {
+        grid-area: input2;
+        border-right: none;
+      }
+  
+      &:nth-child(3) {
+        grid-area: input3;
+      }
+    }
+
+  }
+
+  .btn-close {
+    position: absolute;
+    right: -32px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.8rem;
+    z-index: 100;
+  }
+
+  ol {
+    counter-reset: ol;
+    padding-left: 64px;
+
+    li {
+      counter-increment: ol;
+      position: relative;
+
+      &:before {
+        content: counter(ol) ".";
+        @include font(700);
+        display: block;
+        position: absolute;
+        left: -48px;
+        top: 0;
+        font-size: 4rem;
+        opacity: 0.2;
+      }
+    }
+  }
+
+  .step-textarea {
+    position: relative;
+
+    textarea {
+      min-height: 96px;
+    }
+  }
+}
+
+.submit-bar {
+  display: block;
+  position: sticky;
+  top: calc(100vh - 128px);
+  border-top: 1px solid var(--color-border);
+  padding: 2em;
+}

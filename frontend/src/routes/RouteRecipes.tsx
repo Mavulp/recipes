@@ -1,11 +1,11 @@
 import { Await, Link, defer, useLoaderData } from 'react-router-dom'
-import { Suspense, useLayoutEffect, useMemo, useRef } from 'react'
+import { Suspense, useMemo, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import type { Recipe } from '../types/Recipe'
 import { recipes } from '../api/recipes'
 import { SimpleLoading } from '../components/loading/SimpleLoading'
 import { RecipeItem } from '../components/recipes/RecipeItem'
-import TextInput from '../components/form/TextInput'
+import InputText from '../components/form/InputText'
 import type { RootState } from '../store'
 import { setFilter } from '../store/filters'
 import { classes, searchInStr } from '../scripts/util'
@@ -79,7 +79,7 @@ function RecipeListManager({ data }: { data: Recipe[] }) {
     <>
       {/* Search, filtering, tags etc */}
       <div className={classes(['filters', { 'show-border': showBorder }])} ref={filtersRef}>
-        <TextInput
+        <InputText
           value={search}
           setter={value => dispatch(setFilter(value))}
           placeholder="Search recipes"

@@ -7,7 +7,7 @@ $item-width: 456px;
 
 .recipe-item {
   @include t();
-  @include grid(80px, $item-width 1fr);
+  @include grid(64px, $item-width 1fr);
   align-items: center;
   width: 100%;
   text-decoration: none;
@@ -59,9 +59,9 @@ $item-width: 456px;
 
     .recipe-name {
       @include font(700);
-      font-size: 5.2rem;
+      font-size: 4.4rem;
       display: block;
-      margin-bottom: 16px;
+      margin-bottom: 8px;
       text-wrap: pretty;
     }
   

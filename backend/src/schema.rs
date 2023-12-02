@@ -71,7 +71,6 @@ diesel::table! {
         recipe_id -> Integer,
         idx -> Integer,
         instruction -> Text,
-        notes -> Nullable<Text>,
     }
 }
 

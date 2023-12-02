@@ -52,7 +52,6 @@ CREATE TABLE steps (
     recipe_id INTEGER NOT NULL,
     idx INTEGER NOT NULL, -- position in the recipe
     instruction TEXT NOT NULL,
-    notes TEXT NULL,
 
     UNIQUE(recipe_id, idx),
 

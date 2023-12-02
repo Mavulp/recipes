@@ -54,7 +54,9 @@ pub struct RecipeMetadata {
 #[ts(export, export_to = "../frontend/src/types/")]
 pub struct Recipe {
     pub ingredients: Vec<UsedIngredient>,
-    pub steps: Vec<Step>,
+
+    #[schema(example = json!(["Cook the tomatoes."]))]
+    pub steps: Vec<String>,
 
     #[serde(flatten)]
     pub metadata: RecipeMetadata,
@@ -69,16 +71,6 @@ pub struct UsedIngredient {
 
     #[serde(flatten)]
     pub metadata: Ingredient,
-}
-
-#[derive(Debug, Serialize, Deserialize, TS, ToSchema, Queryable, Insertable)]
-#[ts(export, export_to = "../frontend/src/types/")]
-pub struct Step {
-    #[schema(example = "Cook the tomatoes.")]
-    pub instruction: String,
-
-    #[schema(example = "Careful, knifes can cut you.")]
-    pub notes: Option<String>,
 }
 
 /// Get a list of all recipes
@@ -134,7 +126,7 @@ pub async fn get_by_id(
     let steps = steps::dsl::steps
         .filter(steps::recipe_id.eq(metadata.id))
         .order(steps::idx.asc())
-        .select((steps::instruction, steps::notes))
+        .select(steps::instruction)
         .load(&mut *conn)
         .context("Failed to load steps")?;
 
@@ -169,7 +161,8 @@ pub async fn get_by_id(
 #[derive(Debug, Deserialize, TS, ToSchema)]
 #[ts(export, export_to = "../frontend/src/types/")]
 pub struct PostRecipe {
-    pub steps: Vec<Step>,
+    #[schema(example = json!(["Cook the tomatoes."]))]
+    pub steps: Vec<String>,
     pub ingredients: Vec<PostIngredientAssociation>,
 
     #[serde(flatten)]
@@ -321,7 +314,8 @@ impl PutRecipeMetadata {
 #[derive(Debug, Deserialize, TS, ToSchema)]
 #[ts(export, export_to = "../frontend/src/types/")]
 pub struct PutRecipe {
-    pub steps: Option<Vec<Step>>,
+    #[schema(example = json!(["Cook the tomatoes."]))]
+    pub steps: Option<Vec<String>>,
     pub ingredients: Option<Vec<PostIngredientAssociation>>,
 
     #[serde(flatten)]
@@ -403,7 +397,11 @@ fn insert_ingredients_associations(
     Ok(())
 }
 
-fn insert_steps(conn: &mut SqliteConnection, recipe_id: i64, steps: &[Step]) -> Result<(), Error> {
+fn insert_steps(
+    conn: &mut SqliteConnection,
+    recipe_id: i64,
+    steps: &[String],
+) -> Result<(), Error> {
     diesel::insert_into(steps::table)
         .values(
             steps
@@ -413,7 +411,7 @@ fn insert_steps(conn: &mut SqliteConnection, recipe_id: i64, steps: &[Step]) -> 
                     (
                         steps::recipe_id.eq(recipe_id),
                         steps::idx.eq(idx as i64),
-                        step,
+                        steps::instruction.eq(step),
                     )
                 })
                 .collect::<Vec<_>>(),

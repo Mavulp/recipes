@@ -185,7 +185,6 @@ pub struct PostIngredientAssociation {
 }
 
 #[derive(Debug, Deserialize, TS, ToSchema, Insertable)]
-#[ts(export, export_to = "../frontend/src/types/")]
 #[diesel(table_name = recipes)]
 pub struct PostRecipeMetadata {
     #[schema(example = "Tomato Soup")]
@@ -225,7 +224,7 @@ pub fn placeholder_user() -> String {
     path = "/api/recipe",
     request_body = PostRecipe,
     responses(
-        (status = 200, description = "Posted an recipe", body = PostMetadata),
+        (status = 200, description = "Posted an recipe", body = RecipeMetadata),
     )
 )]
 pub async fn post(
@@ -273,7 +272,6 @@ pub async fn delete_by_id(
 }
 
 #[derive(Debug, Deserialize, TS, ToSchema, AsChangeset)]
-#[ts(export, export_to = "../frontend/src/types/")]
 #[diesel(table_name = recipes)]
 pub struct PutRecipeMetadata {
     #[schema(example = "Tomato Soup")]

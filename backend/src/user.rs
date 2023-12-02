@@ -14,7 +14,6 @@ use crate::SqlitePool;
 /// The definition of a user.
 #[derive(Debug, Serialize, TS, ToSchema, Queryable)]
 #[ts(export, export_to = "../frontend/src/types/")]
-#[serde(rename_all = "camelCase")]
 pub struct User {
     /// The unique username of a user.
     #[schema(example = "alice")]

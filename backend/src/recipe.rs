@@ -18,6 +18,7 @@ use crate::SqlitePool;
 #[ts(export, export_to = "../frontend/src/types/")]
 pub struct RecipeMetadata {
     #[schema(example = 1)]
+    #[ts(type = "number")]
     pub id: i64,
 
     #[schema(example = "Tomato Soup")]
@@ -30,18 +31,22 @@ pub struct RecipeMetadata {
     pub image_url: Option<String>,
 
     #[schema(example = 5)]
+    #[ts(type = "number | null")]
     pub servings: Option<i64>,
 
     #[schema(example = 10)]
+    #[ts(type = "number | null")]
     pub work_time: Option<i64>,
 
     #[schema(example = 30)]
+    #[ts(type = "number | null")]
     pub wait_time: Option<i64>,
 
     #[schema(example = "Alice")]
     pub author: String,
 
     #[schema(example = 1691830000)]
+    #[ts(type = "number")]
     pub created_at: i64,
 }
 
@@ -58,6 +63,7 @@ pub struct Recipe {
 #[derive(Debug, Serialize, TS, ToSchema, Queryable)]
 #[ts(export, export_to = "../frontend/src/types/")]
 pub struct UsedIngredient {
+    #[ts(type = "number | null")]
     pub amount: Option<i64>,
     pub amount_unit: Option<String>,
 
@@ -175,9 +181,11 @@ pub struct PostRecipe {
 #[diesel(table_name = recipe_ingredient_associations)]
 pub struct PostIngredientAssociation {
     #[schema(example = 1)]
+    #[ts(type = "number")]
     ingredient_id: i64,
 
     #[schema(example = 10)]
+    #[ts(type = "number | null")]
     amount: Option<i64>,
 
     #[schema(example = "kg")]
@@ -197,12 +205,15 @@ pub struct PostRecipeMetadata {
     pub image_url: Option<String>,
 
     #[schema(example = 5)]
+    #[ts(type = "number | null")]
     pub servings: Option<i64>,
 
     #[schema(example = 10)]
+    #[ts(type = "number | null")]
     pub work_time: Option<i64>,
 
     #[schema(example = 30)]
+    #[ts(type = "number | null")]
     pub wait_time: Option<i64>,
 
     #[ts(skip)]
@@ -284,12 +295,15 @@ pub struct PutRecipeMetadata {
     pub image_url: Option<String>,
 
     #[schema(example = 5)]
+    #[ts(type = "number | null")]
     pub servings: Option<i64>,
 
     #[schema(example = 10)]
+    #[ts(type = "number | null")]
     pub work_time: Option<i64>,
 
     #[schema(example = 30)]
+    #[ts(type = "number | null")]
     pub wait_time: Option<i64>,
 }
 

@@ -5,13 +5,13 @@ import type { UsedIngredient } from "./UsedIngredient";
 export interface Recipe {
   ingredients: Array<UsedIngredient>;
   steps: Array<Step>;
-  id: bigint;
+  id: number;
   name: string;
   description: string | null;
   image_url: string | null;
-  servings: bigint | null;
-  work_time: bigint | null;
-  wait_time: bigint | null;
+  servings: number | null;
+  work_time: number | null;
+  wait_time: number | null;
   author: string;
-  created_at: bigint;
+  created_at: number;
 }

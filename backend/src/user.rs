@@ -21,6 +21,7 @@ pub struct User {
 
     /// A unix timestamp of when this alias was created.
     #[schema(example = 1670802822)]
+    #[ts(type = "number")]
     pub created_at: i64,
 }
 

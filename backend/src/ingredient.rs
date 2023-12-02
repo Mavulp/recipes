@@ -17,6 +17,7 @@ use crate::SqlitePool;
 #[ts(export, export_to = "../frontend/src/types/")]
 pub struct Ingredient {
     #[schema(example = 1)]
+    #[ts(type = "number")]
     pub id: i64,
 
     #[schema(example = "Tomato")]
@@ -29,6 +30,7 @@ pub struct Ingredient {
     pub author: String,
 
     #[schema(example = 1691830000)]
+    #[ts(type = "number")]
     pub created_at: i64,
 }
 
@@ -102,6 +104,7 @@ pub struct PostIngredient {
 
     #[ts(skip)]
     #[serde(skip, default = "unix_timestamp")]
+    #[ts(type = "number")]
     pub created_at: i64,
 }
 

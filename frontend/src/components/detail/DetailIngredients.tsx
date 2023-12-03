@@ -39,11 +39,14 @@ export default function DetailIngredients({ ingredients, servings }: Props) {
                 // Iterate over them and flip the boolean on the one that's in the current index
                 setter={v => setChecks(checks.map((c, i) => index === i ? v : c))}
               />
-              <span className="amount">
-                <b>{(item.amount / servings) * (servings + multiplier)}</b>
-                {' '}
-                {item.amount_unit}
-              </span>
+              {/* Recipes can be without amount and servings count */}
+              {item.amount && servings && (
+                <span className="amount">
+                  <b>{(item.amount / servings) * (servings + multiplier)}</b>
+                  {' '}
+                  {item.amount_unit}
+                </span>
+              )}
             </li>
           ))}
         </ul>

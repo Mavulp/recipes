@@ -10,11 +10,15 @@ export default function StepForm() {
 
   return (
     <>
-      <ol>
+      <ol key={steps.length}>
         { steps.map((_, index) => <StepItem key={index} index={index} />) }
       </ol>
 
-      <button className="button btn-white btn-add offset" onClick={() => dispatch(addEmptyStep())}>
+      <button
+        className="button btn-add offset btn-gray"
+        onClick={() => dispatch(addEmptyStep())}
+        disabled={steps.some(step => step.length === 0)}
+      >
         <IconAdd />
         Add Step
       </button>

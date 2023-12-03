@@ -2,6 +2,10 @@
 Utility layout classes
 */
 
+:root {
+  --max-width: 1880px;
+}
+
 .flex {
   @include flex(15px);
 

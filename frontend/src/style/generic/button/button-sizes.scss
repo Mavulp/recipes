@@ -12,4 +12,14 @@
     line-height: 28px;
     padding: 0 10px;
   }
+
+  &.btn-large {
+    height: 52px;
+    line-height: 52px;
+    padding: 0 2em;
+
+    svg {
+      font-size: 2.2rem;
+    }
+  }
 }

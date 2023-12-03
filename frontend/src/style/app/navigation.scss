@@ -1,7 +1,14 @@
 header.main-navigation {
-  @include flex();
   padding: 3rem 6em;
-  margin: 0 1em;
+  width: 100%;
+  // margin: 0 auto;
+  
+  .wrapper {
+    @include flex();
+
+    margin: 0 auto;
+    max-width: var(--max-width);
+  }
 
   .logo-wrap {
     @include flex(8px);

@@ -1,7 +1,13 @@
 .route-create {
-  .grid > div {
-    display: block;
-    position: relative;
+  .grid {
+    grid-template-columns: 802px 256px;
+    gap: 64px;
+    margin: 0 auto;
+
+    & > div {
+      display: block;
+      position: relative;
+    }
   }
 
   h2 {
@@ -148,6 +154,9 @@
     transform: translateY(-50%);
     font-size: 1.8rem;
     z-index: 100;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
   }
 
   ol {
@@ -180,10 +189,73 @@
   }
 }
 
-.submit-bar {
-  display: block;
+.submit-bar { 
   position: sticky;
-  top: calc(100vh - 128px);
-  border-top: 1px solid var(--color-border);
-  padding: 2em;
+  top: 32px;
+  margin-top: 40px;
+
+  .submit-progress {
+    display: block;
+    margin-bottom: 24px;
+
+    ul {
+      padding-left: 32px;
+
+      li {
+        position: relative;
+        font-size: 1.4rem;
+        color: var(--color-text-light);
+        
+        &:not(:last-child) {
+          height: 80px;
+
+          &:after {
+            content: "";
+            position: absolute;
+            bottom: 8px;
+            top: 20px;
+            left: -18px;
+            width: 1px;
+            background-color: var(--color-border);
+          }
+        }
+
+        &.complete {
+          color: var(--color-text);
+
+          &:before {
+            background-color: var(--color-text);
+            border-color: var(--color-text);
+          }
+
+          &:after {
+            background-color: var(--color-text);
+          }
+        }
+        
+        &:before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -24px;
+          width: 11px;
+          height: 11px;
+          background-color: transparents;
+          border: 1px solid var(--color-border);
+
+        }
+      }
+    }
+  }
+
+  .button {
+    width: 100%;
+  }
+
+  .submit-error {
+    display: block;
+    font-size: 1.4rem;
+    margin-top: 12px;
+    color: var(--color-error);
+  }
 }

@@ -36,13 +36,13 @@ export default function IngredientForm() {
 
               {
               options.length > 0
-                ? data.map((_, index) => (<IngredientItem key={index} index={index} options={options} />))
+                ? data.map((item, index) => (<IngredientItem key={item.ingredient_id} index={index} options={options} />))
                 : <p>TODO No ingredients available. You can add one here.</p>
             }
             </div>
 
             <button
-              className="button btn-white btn-add"
+              className="button btn-gray btn-add"
               onClick={() => dispatch(addEmptyIngredient())}
             >
               <IconAdd />

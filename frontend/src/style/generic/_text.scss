@@ -38,6 +38,11 @@ h6 {
   font-size: 1.8rem;
 }
 
+p {
+  line-height: 1.4em;
+  text-wrap: pretty
+}
+
 span,
 p {
   @include font(400);

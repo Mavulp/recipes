@@ -21,7 +21,7 @@ export default function StepItem({ index }: Props) {
       />
 
       <button
-        className="btn-close"
+        className="btn-close btn-hover"
         data-title-top="Remove Step"
         onClick={() => dispatch(removeStep({ index }))}
       >

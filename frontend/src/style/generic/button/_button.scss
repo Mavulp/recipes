@@ -12,6 +12,7 @@
   color: var(--color-text);
   text-decoration: none;
   text-transform: uppercase;
+  border: 1px solid transparent;
 
   svg {
     @include t();
@@ -34,22 +35,21 @@
   }
 }
 
-
-.button-hover {
+.btn-hover {
   position: relative;
 
   &:after {
     @include t();
     content: "";
     position: absolute;
-    inset: -8px -12px;
+    inset: -6px;
     z-index: -1;
   }
 
   &:hover {
     &:after {
       opacity: 1;
-      background-color: var(--color-bg-dark-hover);
+      background-color: var(--color-bg-dark);
     }
   }
 }

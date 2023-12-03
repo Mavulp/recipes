@@ -26,4 +26,23 @@
       background-color: var(--color-bg-dark-hover);
     }
   }
+
+  &.btn-black {
+    background-color: var(--color-text);
+    color: var(--color-bg);
+
+    svg {
+      color: var(--color-bg);
+    }
+
+    &:focus,
+    &:hover {
+      color: var(--color-bg);
+      background-color: var(--color-text-light);
+    }
+  }
+
+  &.btn-border {
+    border-color: var(--color-text);
+  }
 }

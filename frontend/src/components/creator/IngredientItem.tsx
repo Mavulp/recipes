@@ -77,7 +77,7 @@ export default function IngredientItem({ index, options }: Props) {
       />
 
       <button
-        className="btn-close"
+        className="btn-close btn-hover"
         data-title-top="Remove Ingredient"
         onClick={() => dispatch(removeIngredient({ index }))}
       >

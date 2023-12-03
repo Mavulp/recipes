@@ -54,9 +54,8 @@ export default function DetailIngredients({ ingredients, servings }: Props) {
         {ingredients.length > 0 && (
           <>
             <hr />
-
             <InputCheckbox
-          // Apologies, this for some reason doesn't correctly update
+              // Apologies, this for some reason doesn't correctly update
               key={String(allSelected)}
               label="I have everything ready."
               value={allSelected}

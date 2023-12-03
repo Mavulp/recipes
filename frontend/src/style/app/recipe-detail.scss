@@ -1,0 +1,175 @@
+.route-recipe {
+  width: 100%;
+  position: relative;
+  max-width: var(--narrow-width);
+
+  .back {
+    position: absolute;
+    top: 0;
+    right: calc(100% + 16px);
+    font-size: 30px;
+    width: 24px;
+    height: 24px;
+  }
+  
+  .recipe-container {
+    padding-bottom: 256px;
+
+    h1 {
+      font-size: 8rem;
+      width: 100%;
+      max-width: calc(var(--max-width) / 2);
+    }
+
+    .description {
+      font-size: 1.8rem;
+      line-height: 1.5em;
+      max-width: calc(var(--max-width) / 2);
+      margin-bottom: 64px;
+    }
+
+    .time-list {
+      @include flex(64px);
+      margin-bottom: 16px;
+
+      li {
+        @include flex(8px);
+
+        svg {
+          font-size: 2.2rem;
+          color: var(--color-text-light);
+        }
+
+        p {
+          font-size: 1.4rem;
+          color: var(--color-text-light);
+          white-space: nowrap;
+          width: auto;
+
+          b {
+            @include font(700);
+            padding-left: 4px;
+          }
+        }
+      }
+    }
+  }
+
+  img {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    height: 324px;
+    margin-bottom: 64px;
+  }
+
+  .ingredients-wrap {
+    @include grid(0, 2fr 1fr);
+    margin-bottom: 64px;
+    border: 1px solid var(--color-border);
+
+    &.all-ready {
+      border-color: var(--color-text);
+
+      .ingredients-list  {
+        border-color: var(--color-text);
+      }
+    }
+
+    .ingredients-list  {
+      padding: 2em;
+      border-right: 1px solid var(--color-border);
+    }
+
+    h3 {
+      font-size: 2rem;
+      margin-bottom: 32px;
+    }
+
+    ul {
+      display: block;
+
+      li {
+        @include grid(0, 2);
+        margin-bottom: 8px;
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+
+        .amount {
+          @include font(600);
+          font-size: 1.6rem;
+        }
+      }
+    }
+
+    hr {
+      margin: 16px 0;
+    }
+
+    .servings-count {
+      padding: 2em;
+      position: relative;
+
+      .buttons {
+        position: absolute;
+        top: 16px;
+        right: 24px;
+
+        button {
+          display: block;
+          z-index: 100;
+          width: 16px;
+          height: 16px;
+          font-size: 2.4rem;
+
+          &:first-of-type {
+            margin-bottom: 16px;
+          }
+        }
+      }
+
+      h3 {
+        @include font(400);
+        font-size: 1.6rem;
+      }
+
+      strong {
+        @include font(700);
+        font-size: 6.4rem;
+      }
+    }
+  }
+
+  .detail-steps {
+    display: block;
+    margin-bottom: 32px;
+    margin: 0 auto;
+    max-width: calc(var(--narrow-width) /2);
+
+    li {
+      margin-bottom: 64px;
+      position: relative;
+      min-height: 64px;
+
+      strong {
+        position: absolute;
+        right: calc(100% + 32px);
+        top: 0;
+        font-size: 6rem;
+        color: var(--color-text);
+        opacity: 0.5;
+      }
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+
+      p {
+        white-space: wrap;
+        font-size: 2rem;
+      }
+    }
+  }
+}

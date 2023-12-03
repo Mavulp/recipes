@@ -1,5 +1,5 @@
 .form-checkbox {
-  display: block;
+  display: inline-flex;
   margin-bottom: 10px;
 
   input[type="checkbox"] {
@@ -7,30 +7,30 @@
 
     & + label {
       @include flex(15px);
+      @include font(400);
       cursor: pointer;
-
-      p {
-        font-size: 1.4rem;
-      }
+      font-size: 1.4rem;
 
       .icon {
-        @include t();
-        color: var(--color-text-lighter);
+        color: var(--color-text);
+        width: 24px;
+        height: 24px;
+        border: 1px solid var(--color-text);
 
         svg {
-          font-size: 2rem;
-        }
-      }
-
-      &:hover {
-        .icon {
-          color: var(--color-text);
+          display: none;
+          font-size: 2.2rem;
         }
       }
     }
 
     &:checked + label .icon {
-      color: var(--color-accent);
+      background-color: var(--color-text);
+      
+      svg {
+        display: block;
+        color: var(--color-bg);
+      }
     }
   }
 }

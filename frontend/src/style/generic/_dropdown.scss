@@ -19,11 +19,20 @@ Generic dropdown styling, allowing you to al
 
   a,
   .button {
+    display: block;
+    text-align: left;
     border-radius: 0 !important;
     justify-content: flex-start;
-    gap: 16px;
+    // gap: 16px;
     width: 100%;
     padding: 0 16px;
+
+    b {
+      display: inline;
+      @include font(700);
+      color: var(--color-accent);
+      // margin: 0 -16px;
+    }
 
     &:hover {
       background-color: var(--color-bg-dark);
@@ -32,10 +41,21 @@ Generic dropdown styling, allowing you to al
     svg {
       text-align: center;
       color: var(--color-accent);
+      margin-right: 12px;
     }
   }
 }
 
 .dropdown-wrap {
   position: relative;
+
+  &.has-selected {
+
+    & > button {
+      ::placeholder {
+        color: var(--color-text) !important;
+        opacity: 1 !important;
+      }
+    }
+  }
 }

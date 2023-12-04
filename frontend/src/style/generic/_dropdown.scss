@@ -23,7 +23,6 @@ Generic dropdown styling, allowing you to al
     text-align: left;
     border-radius: 0 !important;
     justify-content: flex-start;
-    // gap: 16px;
     width: 100%;
     padding: 0 16px;
 
@@ -31,7 +30,6 @@ Generic dropdown styling, allowing you to al
       display: inline;
       @include font(700);
       color: var(--color-accent);
-      // margin: 0 -16px;
     }
 
     &:hover {

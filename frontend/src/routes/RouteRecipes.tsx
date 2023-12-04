@@ -8,7 +8,7 @@ import { RecipeItem } from '../components/recipes/RecipeItem'
 import InputText from '../components/form/InputText'
 import type { RootState } from '../store'
 import { setFilter } from '../store/filters'
-import { classes, searchInStr } from '../scripts/util'
+import { classes, isNil, searchInStr } from '../scripts/util'
 import useWindowPos from '../hooks/useWindowPos'
 
 export default function RouteRecipes() {
@@ -16,7 +16,7 @@ export default function RouteRecipes() {
   const { data } = useLoaderData() as { data: Recipe[] }
   return (
     <div className="route route-home">
-      <h1>All Recipes</h1>
+      <h1 className="underline">All Recipes</h1>
       <Suspense fallback={<SimpleLoading label="Loading All Recipes" />}>
         <Await resolve={data}>
           {data => (
@@ -87,8 +87,6 @@ function RecipeListManager({ data }: { data: Recipe[] }) {
         />
 
         <div className="flex-1"></div>
-        {/* Place remaining filters here */}
-        <div className="flex-1"></div>
 
         {search.length > 0 && (
           <p>
@@ -101,7 +99,15 @@ function RecipeListManager({ data }: { data: Recipe[] }) {
       </div>
 
       <div className="recipe-list-wrap">
-        { filteredData.map(item => (<RecipeItem key={item.name} data={item} />)) }
+        { filteredData.map((item, index) => (
+          <RecipeItem
+            key={item.name}
+            data={item}
+            className={classes({
+              'disable-bottom-border': (filteredData.length - index) <= (filteredData.length % 3) || filteredData.length % 3 === 0,
+            })}
+          />
+        )) }
       </div>
     </>
   )

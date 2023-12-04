@@ -2,6 +2,10 @@ export function stringify(data: unknown) {
   return JSON.stringify(data, null, 2)
 }
 
+export function isNil(val: any) {
+  return val === undefined || val === null
+}
+
 // This will serialize vue-like class object/arrays into a string
 // So that the little cry-baby react can consume it uwu
 type ClassObject = Record<string, boolean>

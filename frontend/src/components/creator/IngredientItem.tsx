@@ -20,7 +20,7 @@ export default function IngredientItem({ index, options }: Props) {
   const dispatch = useDispatch()
 
   const ingredientName = useMemo(() => {
-    return options.find(item => item.id === form.ingredient_id)?.name ?? ''
+    return options.find(item => item.id === form.ingredient_id)?.name ?? null
   }, [options, form])
 
   // Filter options based on search

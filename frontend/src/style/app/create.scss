@@ -67,6 +67,10 @@
     border-radius: 8px;
   }
 
+  ::placeholder {
+    font-size: 1.6rem;
+  }
+
   textarea {
     transition: none;
     min-height: 192px;
@@ -137,10 +141,6 @@
     .form-item {
       &:first-of-type {
         border-right: none;
-
-        // input {
-        //   pointer-events: none !important;
-        // }
       }
 
       &:nth-of-type(2) {

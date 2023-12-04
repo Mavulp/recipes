@@ -12,7 +12,7 @@ import InputText from './InputText'
 interface Props {
   options: Record<string, () => void>
   children?: ReactNode
-  selected?: string
+  selected?: string | null
   label?: string
 }
 

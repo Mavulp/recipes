@@ -1,16 +1,18 @@
 import { Link } from 'react-router-dom'
 import type { RecipeMetadata } from '../../types/RecipeMetadata'
+import { classes } from '../../scripts/util'
 
 interface Props {
   data: RecipeMetadata
+  className?: string
 }
 
 /**
  * This is a list item which is shown on homepage
  */
-export function RecipeItem({ data }: Props) {
+export function RecipeItem({ data, className = '' }: Props) {
   return (
-    <Link className="recipe-item" to={`/recipe/${data.id}`}>
+    <Link className={classes(['recipe-item', className])} to={`/recipe/${data.id}`}>
       {data.image_url && (
         <div className="recipe-image">
           <img src={data.image_url} alt={data.name} />

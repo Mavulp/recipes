@@ -1,5 +1,5 @@
+import Markdown from 'react-markdown'
 import type { Recipe } from '../../types/Recipe'
-import IconKeyDown from '../icons/IconKeyDown'
 
 interface Props {
   steps: Recipe['steps']
@@ -10,11 +10,11 @@ export default function DetailSteps({ steps }: Props) {
     <ol className="detail-steps">
       {steps.map((step, index) => (
         <li key={step}>
-          <strong>
+          <strong className="counter">
             {index + 1}
             .
           </strong>
-          <p>{step}</p>
+          <Markdown>{step}</Markdown>
         </li>
       ))}
     </ol>

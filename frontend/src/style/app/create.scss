@@ -115,13 +115,27 @@
   }
 
   .ingredient-form {
-    display: grid;
-    grid-template:  "input1 input2 input3"  "save save save";
-    grid-auto-flow: column;
-    position: relative;
+    .ingredient-item {
+      @include grid(0, 3);
+      width: 100%;
+      position: relative;
+    }
 
-    & > div {
-      &.dropdown-wrap > button .form-item {
+    .dropdown-wrap {
+      display: block;
+      width: 100%;
+
+      button {
+        width: 100%;
+      }
+
+      &.has-selected .form-item {
+        border-color: var(--color-text);
+      }
+    }
+
+    .form-item {
+      &:first-of-type {
         border-right: none;
 
         input {
@@ -129,24 +143,10 @@
         }
       }
 
-      &:nth-child(1) {
-        grid-area: input1;
-
-        &.has-selected .form-item {
-          border-color: var(--color-text);
-        }
-      }
-  
-      &:nth-child(2) {
-        grid-area: input2;
+      &:nth-of-type(2) {
         border-right: none;
       }
-  
-      &:nth-child(3) {
-        grid-area: input3;
-      }
     }
-
   }
 
   .btn-close {

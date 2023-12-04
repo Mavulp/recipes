@@ -51,7 +51,7 @@ export default function IngredientItem({ index, options }: Props) {
   }
 
   return (
-    <div className="ingredient-form">
+    <div className="ingredient-item">
       <SingleSelect options={formatOptions} selected={ingredientName}>
         {/* TODO: Add search for single and multi select within the component */}
         <InputText

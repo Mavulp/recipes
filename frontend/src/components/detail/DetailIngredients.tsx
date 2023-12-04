@@ -14,7 +14,7 @@ interface Props {
 // Fix types
 
 export default function DetailIngredients({ ingredients, servings }: Props) {
-  const [multiplier, setMultiplier] = useState(1)
+  const [multiplier, setMultiplier] = useState(0)
   const [checks, setChecks] = useState<boolean[]>(
     // Initialize empty array full of false
     Array.from({ length: ingredients.length }).map(_ => false),

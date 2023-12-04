@@ -1,5 +1,5 @@
 import type { Params } from 'react-router-dom'
-import { Await, defer, useLoaderData } from 'react-router-dom'
+import { Await, defer, useLoaderData, useNavigate } from 'react-router-dom'
 import { Suspense } from 'react'
 import { recipes } from '../api/recipes'
 import { SimpleLoading } from '../components/loading/SimpleLoading'
@@ -11,13 +11,14 @@ import IconArrowLeft from '../components/icons/IconArrowLeft'
 
 export default function RouteRecipe() {
   const { data } = useLoaderData() as { data: Recipe }
+  const navigate = useNavigate()
   return (
     <>
       <Suspense fallback={<SimpleLoading label="Loading Recipe" />}>
         <Await resolve={data}>
           {(data: Recipe) => (
             <div className="route route-recipe">
-              <button className="btn-hover back" data-title-top="Back to recipes">
+              <button className="btn-hover back" data-title-top="Back to recipes" onClick={() => navigate('/recipes')}>
                 <IconArrowLeft />
               </button>
 

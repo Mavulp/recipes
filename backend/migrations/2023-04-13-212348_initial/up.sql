@@ -94,11 +94,12 @@ CREATE TABLE recipe_tag_associations (
 
 CREATE TABLE reviews (
     id INTEGER PRIMARY KEY NOT NULL,
-    author TEXT NOT NULL COLLATE NOCASE,
     recipe_id INTEGER NOT NULL,
-    created_at INTEGER NOT NULL, -- unix ts
 
     text TEXT NOT NULL,
+
+    author TEXT NOT NULL COLLATE NOCASE,
+    created_at INTEGER NOT NULL, -- unix ts
 
     CONSTRAINT fk_recipe_id_assoc
         FOREIGN KEY (recipe_id)

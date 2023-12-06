@@ -67,6 +67,8 @@ pub struct Recipe {
 pub struct UsedIngredient {
     #[ts(type = "number | null")]
     pub amount: Option<i64>,
+
+    #[schema(example = "kg")]
     pub amount_unit: Option<String>,
 
     #[serde(flatten)]

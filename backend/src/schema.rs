@@ -56,10 +56,10 @@ diesel::table! {
 
     reviews (id) {
         id -> Integer,
-        author -> Text,
         recipe_id -> Integer,
-        created_at -> Integer,
         text -> Text,
+        author -> Text,
+        created_at -> Integer,
     }
 }
 

@@ -15,6 +15,7 @@ pub mod util;
 mod error;
 mod ingredient;
 mod recipe;
+mod review;
 mod schema;
 mod sqlite_mapping;
 mod user;
@@ -31,6 +32,9 @@ pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!();
         recipe::post,
         recipe::delete_by_id,
         recipe::put,
+        review::get_all,
+        review::post,
+        review::delete,
         ingredient::get_all,
         ingredient::get_by_id,
         ingredient::post,
@@ -47,6 +51,8 @@ pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!();
         recipe::PutRecipeMetadata,
         recipe::PostIngredientAssociation,
         recipe::UsedIngredient,
+        review::Review,
+        review::PostReview,
         ingredient::Ingredient,
         ingredient::PostIngredient,
         ingredient::PutIngredient
@@ -64,6 +70,9 @@ pub async fn api_route(pool: SqlitePool) -> anyhow::Result<Router> {
         .route("/api/recipe/:id", get(recipe::get_by_id))
         .route("/api/recipe/:id", delete(recipe::delete_by_id))
         .route("/api/recipe/:id", put(recipe::put))
+        .route("/api/recipe/:id/review", get(review::get_all))
+        .route("/api/recipe/:id/review", post(review::post))
+        .route("/api/review/:id", delete(review::delete))
         .route("/api/ingredient", get(ingredient::get_all))
         .route("/api/ingredient", post(ingredient::post))
         .route("/api/ingredient/:id", get(ingredient::get_by_id))

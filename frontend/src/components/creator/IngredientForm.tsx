@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Spinner from '../loading/Spinner'
-import { ingredients } from '../../api/recipes'
+import { ingredients } from '../../api/router'
 import type { Ingredient } from '../../types/Ingredient'
 
 import IconAdd from '../icons/IconAdd'

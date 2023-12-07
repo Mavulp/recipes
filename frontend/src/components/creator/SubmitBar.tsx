@@ -6,7 +6,7 @@ import IconPan from '../icons/IconPan'
 import { clear, selectorIsGeneralReady, selectorIsIngredientReady, selectorIsStepReady } from '../../store/create'
 import Spinner from '../loading/Spinner'
 import type { RootState } from '../../store'
-import { recipes } from '../../api/recipes'
+import { recipes } from '../../api/router'
 import type { Recipe } from '../../types/Recipe'
 
 export default function SubmitBar() {

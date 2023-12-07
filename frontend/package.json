@@ -20,6 +20,9 @@
     "react-router-dom": "^6.20.0",
     "sass": "^1.69.5"
   },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.6.1"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "^2.1.2",
     "@types/react": "^18.2.37",

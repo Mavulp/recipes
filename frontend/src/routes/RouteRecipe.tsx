@@ -1,28 +1,41 @@
 import type { Params } from 'react-router-dom'
 import { Await, defer, useLoaderData, useNavigate } from 'react-router-dom'
 import { Suspense } from 'react'
-import { recipes } from '../api/recipes'
+import { recipes } from '../api/router'
 import { SimpleLoading } from '../components/loading/SimpleLoading'
 import type { Recipe } from '../types/Recipe'
 import DetailTime from '../components/detail/DetailTime'
 import DetailIngredients from '../components/detail/DetailIngredients'
 import DetailSteps from '../components/detail/DetailSteps'
 import IconArrowLeft from '../components/icons/IconArrowLeft'
+import Alert from '../components/Alert'
+import Reviews from '../components/reviews/Reviews'
+import type { Review } from '../types/Review'
 
 export default function RouteRecipe() {
-  const { data } = useLoaderData() as { data: Recipe }
+  const { data, reviews } = useLoaderData() as {
+    data: Recipe
+    reviews: Review[]
+  }
+
   const navigate = useNavigate()
   return (
     <>
       <Suspense fallback={<SimpleLoading label="Loading Recipe" />}>
-        <Await resolve={data}>
-          {(data: Recipe) => (
+        <Await resolve={Promise.all([data, reviews])}>
+          {([data, reviews]: [Recipe, Review[]]) => (
             <div className="route route-recipe">
               <button className="btn-hover back" data-title-top="Back to recipes" onClick={() => navigate('/recipes')}>
                 <IconArrowLeft />
               </button>
 
-              {data.image_url && <img src={data.image_url} alt={data.name} />}
+              <Alert
+                revokeKey={data.id}
+                type="warning"
+                text="The recipe contains an ingredient, which you have blacklisted. Please proceed with caution."
+              />
+
+              {data.image_url && <img className="banner" src={data.image_url} alt={data.name} />}
 
               <div className="recipe-container">
                 <ul className="time-list">
@@ -35,6 +48,10 @@ export default function RouteRecipe() {
 
                 <DetailIngredients ingredients={data.ingredients} servings={data.servings} />
                 <DetailSteps steps={data.steps} />
+
+                <hr className="hr-48" />
+
+                <Reviews reviews={reviews} recipeId={data.id} />
               </div>
             </div>
           )}
@@ -47,5 +64,6 @@ export default function RouteRecipe() {
 export function routeRecipeLoader({ params }: { params: Params<'recipeId'> }) {
   return defer({
     data: recipes.get<Recipe>(params.recipeId),
+    reviews: recipes.get<Review[]>(`${params.recipeId}/review`),
   })
 }

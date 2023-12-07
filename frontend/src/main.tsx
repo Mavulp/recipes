@@ -13,6 +13,7 @@ import RouteRecipe, { routeRecipeLoader } from './routes/RouteRecipe.tsx'
 import { Navigation } from './components/navigation/Navigation.tsx'
 import RouteCreate from './routes/RouteCreate.tsx'
 import { store } from './store/index.ts'
+import RouteUser, { routeUserLoader } from './routes/RouteUser.tsx'
 
 // Root wrapper around the router views
 // Anything that should be persistent between routes,
@@ -47,6 +48,11 @@ const router = createBrowserRouter([
       {
         path: 'create',
         element: <RouteCreate />,
+      },
+      {
+        path: 'user/:userId',
+        element: <RouteUser />,
+        loader: routeUserLoader,
       },
     ],
   },

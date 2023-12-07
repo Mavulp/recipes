@@ -60,3 +60,15 @@ Utility layout classes
     grid-template-columns: 1fr 1fr;
   }
 }
+
+hr {
+  margin: 16px 0;
+
+  &.hr-32 {
+    margin: 32px 0;
+  }
+
+  &.hr-48 {
+    margin: 48px 0;
+  }
+}

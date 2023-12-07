@@ -1,0 +1,25 @@
+.time-list {
+  @include flex(64px);
+  margin-bottom: 16px;
+
+  li {
+    @include flex(8px);
+
+    svg {
+      font-size: 2.2rem;
+      color: var(--color-text-light);
+    }
+
+    p {
+      font-size: 1.4rem;
+      color: var(--color-text-light);
+      white-space: nowrap;
+      width: auto;
+
+      b {
+        @include font(700);
+        padding-left: 4px;
+      }
+    }
+  }
+}

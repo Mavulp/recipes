@@ -9,6 +9,11 @@ setupEru({
 })
 
 // This is an API router for recipes
-export const recipes = eru('/recipe')
+export const recipes = eru('/recipe', {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
 export const ingredients = eru('/ingredient')
 export const user = eru('/user')
+export const reviews = eru('/reviews')

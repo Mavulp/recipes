@@ -38,6 +38,14 @@
 .btn-hover {
   position: relative;
 
+  &.btn-icon {
+    display: block;
+    z-index: 100;
+    width: 16px;
+    height: 16px;
+    font-size: 1.8rem;
+  }
+
   &:after {
     @include t();
     content: "";
@@ -51,6 +59,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    color: var(--color-text);
   }
 
   &:hover {

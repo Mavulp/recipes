@@ -56,10 +56,23 @@ export function searchInStr(match: string | string[], search?: string | null) {
   return split.every(s => joint.toLowerCase().includes(s.toLowerCase()))
 }
 
-// Detect if value is primitive
-
 // Some basic time utilities. Converts the provided date type to milliseconds
 export const seconds = (amount: number) => amount * 1000
 export const minutes = (amount: number) => seconds(amount * 60)
 export const hours = (amount: number) => minutes(amount * 60)
 export const days = (amount: number) => hours(amount * 24)
+
+// Takes a number and if it is only 1 digit, prepends a 0
+export function padTo2Digits(num: number) {
+  return num.toString().padStart(2, '0')
+}
+
+export function formatDate(date: number) {
+  const _date = new Date(date * 1000)
+
+  return `${padTo2Digits(_date.getUTCHours())}:${padTo2Digits(_date.getUTCMinutes())}, ${_date.toLocaleDateString('en-GB', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })}`
+}

@@ -27,35 +27,9 @@
       // max-width: calc(var(--max-width) / 2);
       margin-bottom: 64px;
     }
-
-    .time-list {
-      @include flex(64px);
-      margin-bottom: 16px;
-
-      li {
-        @include flex(8px);
-
-        svg {
-          font-size: 2.2rem;
-          color: var(--color-text-light);
-        }
-
-        p {
-          font-size: 1.4rem;
-          color: var(--color-text-light);
-          white-space: nowrap;
-          width: auto;
-
-          b {
-            @include font(700);
-            padding-left: 4px;
-          }
-        }
-      }
-    }
   }
 
-  img {
+  .banner {
     width: 100%;
     object-fit: cover;
     object-position: center;
@@ -104,10 +78,6 @@
       }
     }
 
-    hr {
-      margin: 16px 0;
-    }
-
     .servings-count {
       padding: 2em;
       position: relative;
@@ -144,8 +114,8 @@
 
   .detail-steps {
     display: block;
-    margin-bottom: 32px;
     margin: 0 auto;
+    margin-bottom: 80px;
     max-width: calc(var(--narrow-width) /2);
 
     li {
@@ -154,12 +124,13 @@
       min-height: 64px;
 
       .counter {
+        @include font(700);
         position: absolute;
-        right: calc(100% + 32px);
-        top: 0;
-        font-size: 6rem;
+        right: calc(100% + 20px);
+        top: -12px;
+        font-size: 5rem;
         color: var(--color-text);
-        opacity: 0.5;
+        opacity: 0.25;
       }
 
       &:last-of-type {

@@ -1,5 +1,4 @@
 import { eru, setupEru } from '@dolanske/eru'
-import type { Ingredient } from '../types/Ingredient'
 
 setupEru({
   rootPath: 'https://recipes.hivecom.net/api',

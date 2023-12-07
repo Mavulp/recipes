@@ -1,7 +1,7 @@
 import type { FormEvent } from 'react'
 import { useEffect, useMemo, useState } from 'react'
 import InputTextarea from '../form/InputTextarea'
-import { recipes, reviews } from '../../api/router'
+import { recipes } from '../../api/router'
 import type { Review } from '../../types/Review'
 import { classes } from '../../scripts/util'
 import Spinner from '../loading/Spinner'

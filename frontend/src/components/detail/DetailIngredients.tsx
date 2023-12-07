@@ -67,7 +67,7 @@ export default function DetailIngredients({ ingredients, servings }: Props) {
 
       {servings && (
         <div className="servings-count">
-          <h3>Sevings</h3>
+          <h3>Servings</h3>
           <strong>{servings + multiplier}</strong>
 
           {servings && (

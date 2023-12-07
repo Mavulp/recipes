@@ -76,3 +76,8 @@ export function formatDate(date: number) {
     day: 'numeric',
   })}`
 }
+
+export function randomLightColor() {
+  const h = Math.floor(Math.random() * 360)
+  return `hsl(${h}deg, 50%, 10%)`
+}

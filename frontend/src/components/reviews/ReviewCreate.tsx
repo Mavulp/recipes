@@ -75,11 +75,7 @@ export default function ReviewCreate({ onCreate, recipeId }: Props) {
           <button type="submit" className="button btn-white btn-large" disabled={!canSubmit}>
             {loading
               ? <Spinner />
-              : (
-                <>
-                  Post
-                </>
-                )}
+              : ('Post')}
           </button>
         </div>
       </form>

@@ -109,6 +109,7 @@ pub async fn get_all(
             recipes::all_columns,
             count(recipe_ingredient_associations::id),
         ))
+        .order(recipes::created_at.desc())
         .load(&mut *conn)
         .context("Failed to load recipes")?
         .into_iter()

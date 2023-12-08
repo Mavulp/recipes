@@ -50,6 +50,7 @@ pub async fn get_all(
 
     debug!("Loading all ingredients");
     let ingredients = ingredients::dsl::ingredients
+        .order(ingredients::name.asc())
         .load(&mut *conn)
         .context("Failed to load ingredients")?;
 

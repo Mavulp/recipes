@@ -63,6 +63,7 @@ pub async fn get_all(
 
     let reviews = reviews::dsl::reviews
         .filter(reviews::dsl::recipe_id.eq(id))
+        .order(reviews::created_at.desc())
         .load(&mut *conn)
         .context(format!("Failed to query reviews for {id}"))?;
 

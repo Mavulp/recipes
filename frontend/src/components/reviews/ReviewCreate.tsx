@@ -6,6 +6,7 @@ import type { Review } from '../../types/Review'
 import { classes } from '../../scripts/util'
 import Spinner from '../loading/Spinner'
 import { sanitize } from '../../scripts/review'
+import Button from '../Button'
 
 const ALLOWED_LENGTH = 4096
 
@@ -72,11 +73,20 @@ export default function ReviewCreate({ onCreate, recipeId }: Props) {
 
           <div className="flex-1"></div>
 
-          <button type="submit" className="button btn-white btn-large" disabled={!canSubmit}>
+          <Button
+            type="submit"
+            classes="button btn-white btn-large"
+            disabled={!canSubmit}
+            loading={loading}
+          >
+            Post
+          </Button>
+
+          {/* <button type="submit" className="" >
             {loading
               ? <Spinner />
               : ('Post')}
-          </button>
+          </button> */}
         </div>
       </form>
     </div>

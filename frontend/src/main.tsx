@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom/client'
 import './style/index.scss'
 import {
   Outlet,
   RouterProvider,
   createBrowserRouter,
+  redirect,
+  useNavigate,
 } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import RouteRecipes, { routeRecipesLoader } from './routes/RouteRecipes.tsx'
@@ -19,6 +21,8 @@ import RouteUser, { routeUserLoader } from './routes/RouteUser.tsx'
 // Anything that should be persistent between routes,
 // should be placed above or bellow the <Outlet /> component
 function App() {
+  const navigate = useNavigate()
+  useEffect(() => navigate('/recipes'), [])
   return (
     <>
       <Navigation />

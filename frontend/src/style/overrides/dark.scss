@@ -1,3 +1,14 @@
 :root.dark-theme {
   // Dark theme styling
+
+  header.main-navigation .logo-wrap img {
+    filter: invert(100);
+  }
+  
+  .alert  {
+    .alert-badge,
+    p {
+      color: var(--color-bg);
+    }
+  }
 }

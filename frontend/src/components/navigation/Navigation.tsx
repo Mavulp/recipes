@@ -1,4 +1,10 @@
 import { NavLink } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useLocalState } from '../../hooks/useStorage'
+import IconSun from '../icons/IconSun'
+import IconMoon from '../icons/IconMoon'
+import { prefersDark } from '../../scripts/util'
+import Button from '../Button'
 
 const links = [
   {
@@ -15,7 +21,20 @@ const links = [
   },
 ]
 
+const root = document.querySelector(':root')!
+
 export function Navigation() {
+  // Default value will be set to the user's preferred theme
+  // And later on this default value will be ignored for the cached one
+  const [dark, setDark] = useLocalState('theme', prefersDark())
+
+  useEffect(() => {
+    if (dark)
+      root.classList.add('dark-theme')
+    else
+      root.classList.remove('dark-theme')
+  }, [dark])
+
   return (
     <header className="main-navigation">
       <div className="wrapper">
@@ -26,7 +45,7 @@ export function Navigation() {
         <div className="flex-1"></div>
 
         <nav role="navigation">
-          <ul>
+          <ul aria-label="Main Navigation" role="navigation">
             { links.map(link => (
               <li key={link.to}>
                 <NavLink to={link.to}>{link.label}</NavLink>
@@ -34,6 +53,12 @@ export function Navigation() {
             )) }
           </ul>
         </nav>
+
+        <div className="flex-1"></div>
+
+        <Button classes="btn-hover btn-icon" data-title-bottom="Change Theme" onClick={() => setDark(!dark)}>
+          {dark ? <IconSun /> : <IconMoon /> }
+        </Button>
       </div>
     </header>
   )

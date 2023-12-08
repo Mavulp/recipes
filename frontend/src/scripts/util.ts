@@ -8,9 +8,10 @@ export function isNil(val: any) {
 
 // This will serialize vue-like class object/arrays into a string
 // So that the little cry-baby react can consume it uwu
-type ClassObject = Record<string, boolean>
+export type ClassObject = Record<string, boolean>
+export type Classes = string | ClassObject | Array<string | ClassObject>
 
-export function classes(items: string | ClassObject | Array<string | ClassObject>) {
+export function classes(items: Classes) {
   const classes: string[] = []
 
   function runObject(obj: ClassObject) {
@@ -79,5 +80,9 @@ export function formatDate(date: number) {
 
 export function randomLightColor() {
   const h = Math.floor(Math.random() * 360)
-  return `hsl(${h}deg, 50%, 10%)`
+  return `hsl(${h}deg, 50%, 30%)`
+}
+
+export function prefersDark() {
+  return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
 }

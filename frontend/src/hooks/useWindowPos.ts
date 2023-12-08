@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
  * Tracks user's scroll position.
  */
 
-// TODO: add option to debounce the event listener
 export default function useWindowPos() {
   const [x, setX] = useState(window.scrollX)
   const [y, setY] = useState(window.scrollY)

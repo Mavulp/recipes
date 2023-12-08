@@ -15,4 +15,4 @@ export const recipes = eru('/recipe', {
 })
 export const ingredients = eru('/ingredient')
 export const user = eru('/user')
-export const reviews = eru('/reviews')
+export const reviews = eru('/review')

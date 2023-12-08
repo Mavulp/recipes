@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { Review } from '../../types/Review'
 import { stringify } from '../../scripts/util'
+import { reviews as reviewsApi } from '../../api/router'
 import ReviewCreate from './ReviewCreate'
 import ReviewItem from './ReviewItem'
 
@@ -36,7 +37,17 @@ export default function Reviews({ reviews, recipeId }: Props) {
       />
 
       <ul className="review-list">
-        {list.map(item => <ReviewItem key={item.id} data={item} />)}
+        {list.map(item => (
+          <ReviewItem
+            key={item.id}
+            data={item}
+            onDelete={(reviewId: number) => {
+              // Remove item
+              updateList(list.filter(item => item.id !== reviewId))
+              reviewsApi.delete(reviewId)
+            }}
+          />
+        ))}
       </ul>
     </div>
   )

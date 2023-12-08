@@ -25,9 +25,35 @@
       width: 100%;
       padding: 16px;
       border: 1px solid var(--color-border);
+      position: relative;
 
       &:not(:last-of-type) {
         border-bottom: 0
+      }
+
+      // When hovering outside of the recipe to remove it,
+      // This after will make sure the hover is not removed
+      &:after {
+        content: "";
+        position: absolute;
+        left: 100%;
+        width: 64px;
+        top: 0;
+        bottom: 0;
+      }
+
+      &:hover {
+        .btn-icon {
+          display: block;
+        }
+      }
+
+      .btn-icon {
+        display: none;
+        position: absolute;
+        left: calc(100% + 32px);
+        top: 20px;
+
       }
   
       .review-header {

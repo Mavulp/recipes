@@ -64,7 +64,7 @@ pub async fn get_all(
     let reviews = reviews::dsl::reviews
         .filter(reviews::dsl::recipe_id.eq(id))
         .load(&mut *conn)
-        .context("Failed to query reviews")?;
+        .context(format!("Failed to query reviews for {id}"))?;
 
     debug!(count = reviews.len(), "Found Reviews");
     Ok(Json(reviews))

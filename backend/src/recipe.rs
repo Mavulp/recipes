@@ -4,7 +4,8 @@ use anyhow::Context;
 use axum::extract::rejection::JsonRejection;
 use axum::extract::Path;
 use axum::{Extension, Json};
-use diesel::prelude::*;
+use diesel::dsl::count;
+use diesel::{dsl::exists, prelude::*, select};
 use serde::{Deserialize, Serialize};
 use tracing::debug;
 use ts_rs::TS;
@@ -52,6 +53,16 @@ pub struct RecipeMetadata {
 
 #[derive(Debug, Serialize, TS, ToSchema)]
 #[ts(export, export_to = "../frontend/src/types/")]
+pub struct ListRecipe {
+    #[schema(example = 5)]
+    pub ingredient_count: i64,
+
+    #[serde(flatten)]
+    pub metadata: RecipeMetadata,
+}
+
+#[derive(Debug, Serialize, TS, ToSchema)]
+#[ts(export, export_to = "../frontend/src/types/")]
 pub struct Recipe {
     pub ingredients: Vec<UsedIngredient>,
 
@@ -65,6 +76,7 @@ pub struct Recipe {
 #[derive(Debug, Serialize, TS, ToSchema, Queryable)]
 #[ts(export, export_to = "../frontend/src/types/")]
 pub struct UsedIngredient {
+    #[schema(example = 10)]
     #[ts(type = "number | null")]
     pub amount: Option<i64>,
 
@@ -80,19 +92,31 @@ pub struct UsedIngredient {
     get,
     path = "/api/recipe",
     responses(
-        (status = 200, description = "Recipes are returned", body = [Recipe]),
+        (status = 200, description = "Recipes are returned", body = [ListRecipe]),
     )
 )]
 pub async fn get_all(
     Extension(pool): Extension<SqlitePool>,
-) -> Result<Json<Vec<RecipeMetadata>>, Error> {
+) -> Result<Json<Vec<ListRecipe>>, Error> {
     let mut conn = pool.get().await.expect("can connect to sqlite");
 
     debug!("Loading all recipes");
 
-    let recipes = recipes::dsl::recipes
+    let recipes: Vec<ListRecipe> = recipes::dsl::recipes
+        .inner_join(recipe_ingredient_associations::table)
+        .group_by(recipes::id)
+        .select((
+            recipes::all_columns,
+            count(recipe_ingredient_associations::id),
+        ))
         .load(&mut *conn)
-        .context("Failed to load recipes")?;
+        .context("Failed to load recipes")?
+        .into_iter()
+        .map(|(m, count)| ListRecipe {
+            ingredient_count: count,
+            metadata: m,
+        })
+        .collect();
 
     debug!(count = recipes.len(), "Returning recipes");
 
@@ -240,17 +264,19 @@ pub async fn post(
     let Json(req) = req?;
     let mut conn = pool.get().await.expect("can connect to sqlite");
 
-    let metadata: RecipeMetadata = diesel::insert_into(recipes::table)
-        .values(&req.metadata)
-        .get_result(&mut *conn)
-        .context("Failed to insert recipe")?;
+    conn.transaction(|mut conn| {
+        let metadata: RecipeMetadata = diesel::insert_into(recipes::table)
+            .values(&req.metadata)
+            .get_result(&mut *conn)
+            .context("Failed to insert recipe")?;
 
-    insert_ingredients_associations(&mut conn, metadata.id, &req.ingredients)?;
-    insert_steps(&mut conn, metadata.id, &req.steps)?;
+        insert_ingredients_associations(&mut conn, metadata.id, &req.ingredients)?;
+        insert_steps(&mut conn, metadata.id, &req.steps)?;
 
-    debug!("Inserted recipe successfully");
+        debug!("Inserted recipe successfully");
 
-    Ok(Json(metadata))
+        Ok(Json(metadata))
+    })
 }
 
 // Delete recipe
@@ -343,35 +369,47 @@ pub async fn put(
     let Json(req) = req?;
     let mut conn = pool.get().await.expect("can connect to sqlite");
 
-    if req.metadata.has_changes() {
-        diesel::update(recipes::dsl::recipes.filter(recipes::dsl::id.eq(id)))
-            .set(&req.metadata)
+    conn.transaction(|mut conn| {
+        let recipe_exists: bool = select(exists(
+            recipes::dsl::recipes.filter(recipes::dsl::id.eq(id)),
+        ))
+        .get_result(conn)
+        .context("Failed to check if recipe exists")?;
+
+        if !recipe_exists {
+            return Err(Error::NotFound);
+        }
+
+        if req.metadata.has_changes() {
+            diesel::update(recipes::dsl::recipes.filter(recipes::dsl::id.eq(id)))
+                .set(&req.metadata)
+                .execute(&mut *conn)
+                .context("Failed to update recipe metadata")?;
+        }
+
+        if let Some(ingredients) = req.ingredients {
+            diesel::delete(
+                recipe_ingredient_associations::dsl::recipe_ingredient_associations
+                    .filter(recipe_ingredient_associations::dsl::recipe_id.eq(id)),
+            )
             .execute(&mut *conn)
-            .context("Failed to update recipe")?;
-    }
+            .context("Failed to delete ingredients")?;
 
-    if let Some(ingredients) = req.ingredients {
-        diesel::delete(
-            recipe_ingredient_associations::dsl::recipe_ingredient_associations
-                .filter(recipe_ingredient_associations::dsl::recipe_id.eq(id)),
-        )
-        .execute(&mut *conn)
-        .context("Failed to delete ingredients")?;
+            insert_ingredients_associations(&mut conn, id, &ingredients)?;
+        }
 
-        insert_ingredients_associations(&mut conn, id, &ingredients)?;
-    }
+        if let Some(steps) = req.steps {
+            diesel::delete(steps::dsl::steps.filter(steps::dsl::recipe_id.eq(id)))
+                .execute(&mut *conn)
+                .context("Failed to delete steps")?;
 
-    if let Some(steps) = req.steps {
-        diesel::delete(steps::dsl::steps.filter(steps::dsl::recipe_id.eq(id)))
-            .execute(&mut *conn)
-            .context("Failed to delete a steps")?;
+            insert_steps(&mut conn, id, &steps)?;
+        }
 
-        insert_steps(&mut conn, id, &steps)?;
-    }
+        debug!("Updated recipe successfully");
 
-    debug!("Updated recipe successfully");
-
-    Ok(())
+        Ok(())
+    })
 }
 
 fn insert_ingredients_associations(

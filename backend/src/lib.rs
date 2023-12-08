@@ -44,6 +44,7 @@ pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!();
     components(schemas(
         user::User,
         recipe::Recipe,
+        recipe::ListRecipe,
         recipe::PostRecipe,
         recipe::PutRecipe,
         recipe::RecipeMetadata,

@@ -52,6 +52,9 @@ pub enum Error {
     #[error("Internal Server Error")]
     InternalError(#[from] anyhow::Error),
 
+    #[error("Internal Server Error")]
+    DieselError(#[from] diesel::result::Error),
+
     #[error("{0}")]
     JsonRejection(#[from] JsonRejection),
 }
@@ -63,6 +66,8 @@ impl IntoResponse for Error {
         let status = match &self {
             Error::Unathorized => StatusCode::UNAUTHORIZED,
             Error::NotFound => StatusCode::NOT_FOUND,
+            // TODO Log this like InternalError
+            Error::DieselError(_) => StatusCode::INTERNAL_SERVER_ERROR,
             Error::InternalError(e) => {
                 // In the case of an internal error we won't return any information to the front
                 // end so we log it instead so that we don't lose that information.

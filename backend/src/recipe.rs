@@ -55,6 +55,7 @@ pub struct RecipeMetadata {
 #[ts(export, export_to = "../frontend/src/types/")]
 pub struct ListRecipe {
     #[schema(example = 5)]
+    #[ts(type = "number")]
     pub ingredient_count: i64,
 
     #[serde(flatten)]

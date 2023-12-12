@@ -1,0 +1,56 @@
+.form-item.form-slider {
+  @include flex(12px);
+
+  &:hover {
+    input {
+      &::-moz-range-thumb,
+      &::-webkit-slider-thumb {
+        background: var(--color-text);
+      }
+    }
+  }
+
+  label {
+    font-size: 1.4rem;
+    min-width: 80px;
+    text-align: right;
+  }
+
+  input {
+    width: 96px;
+    background-color: var(--color-text);
+    margin: 0;
+    padding: 0;
+    -webkit-appearance: none;  
+    appearance: none;
+    // width: 100%; 
+    height: 1px; 
+    background: var(--color-text); 
+
+    &::-moz-range-thumb,
+    &::-webkit-slider-thumb {
+      @include t();
+      -webkit-appearance: none; 
+      appearance: none;
+      border-radius: 50%;
+      width: 14px; 
+      height: 14px; 
+      background: var(--color-text); 
+      cursor: pointer; 
+      border: none
+    }
+  }
+
+  .wrapper {
+    @include flex(16px);
+    width: 100%;
+
+    span {
+      content: attr(data-label);
+
+      &:hover {
+        content: attr(data-value);
+      }
+    }
+  }
+}

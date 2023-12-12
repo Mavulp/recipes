@@ -1,10 +1,12 @@
 import { NavLink } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useLocalState } from '../../hooks/useStorage'
 import IconSun from '../icons/IconSun'
 import IconMoon from '../icons/IconMoon'
 import { prefersDark } from '../../scripts/util'
 import Button from '../Button'
+import useWindowPos from '../../hooks/useWindowPos'
+import IconArrowUp from '../icons/IconArrowUp'
 
 const links = [
   {
@@ -35,6 +37,12 @@ export function Navigation() {
       root.classList.remove('dark-theme')
   }, [dark])
 
+  // Scroll up
+  const { y } = useWindowPos()
+  const showScrollUp = useMemo(() => {
+    return y > (window.innerHeight * 0.3)
+  }, [y])
+
   return (
     <header className="main-navigation">
       <div className="wrapper">
@@ -60,6 +68,12 @@ export function Navigation() {
           {dark ? <IconSun /> : <IconMoon /> }
         </Button>
       </div>
+
+      {showScrollUp && (
+        <Button classes="btn-scroll-up" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} data-title-left="Scroll up">
+          <IconArrowUp />
+        </Button>
+      )}
     </header>
   )
 }

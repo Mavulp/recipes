@@ -1,20 +1,18 @@
 .route-create {
-  .grid {
+  .wrapper {
     width: 100%;
     max-width: var(--narrow-width);
-    grid-template-columns: 3.5fr 1fr;
-    gap: 80px;
     margin: 0 auto;
+    position: relative;
+  }
 
-    & > div {
-      display: block;
-      position: relative;
-    }
+  & > h1 {
+    margin-bottom: 0 !important;
   }
 
   h2 {
     margin-bottom: 16px;
-    font-size: 2.4rem;
+    font-size: 3.6rem;
 
     &:has(+ p) {
       margin-bottom: 8px;
@@ -45,7 +43,7 @@
 
   .form {
     width: 100%;
-    max-width: 50vw;
+    // max-width: 50vw;
     margin-bottom: 64px;
   }
 
@@ -192,32 +190,41 @@
 }
 
 .submit-bar { 
+  @include flex(64px);
   position: sticky;
-  top: 32px;
-  margin-top: 40px;
+  top: 0;
+  z-index: 100;
+  padding: 2em 0;
+  width: 100%;
+  max-width: var(--narrow-width);
+  border-bottom: 1px solid var(--color-border);
+  margin: 0 auto;
+  margin-bottom: 64px;
+  background-color: var(--color-bg);
 
   .submit-progress {
+    flex: 1;
     display: block;
-    margin-bottom: 24px;
 
     ul {
-      padding-left: 32px;
+      @include flex(32px);
 
       li {
+        @include flex(16px);
         position: relative;
+        padding-left: 24px;
         font-size: 1.4rem;
         color: var(--color-text-light);
+        white-space: nowrap;
         
         &:not(:last-child) {
-          height: 80px;
+        width: 100%;
 
           &:after {
             content: "";
-            position: absolute;
-            bottom: 8px;
-            top: 20px;
-            left: -18px;
-            width: 1px;
+            display: block;
+            height: 1px;
+            width: 100%;
             background-color: var(--color-border);
           }
         }
@@ -239,7 +246,7 @@
           content: "";
           position: absolute;
           top: 0;
-          left: -24px;
+          left: 0;
           width: 11px;
           height: 11px;
           background-color: transparents;
@@ -251,7 +258,7 @@
   }
 
   .button {
-    width: 100%;
+    // width: 100%;
   }
 
   .submit-error {

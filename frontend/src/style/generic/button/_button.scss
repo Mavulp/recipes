@@ -23,6 +23,7 @@
   &:disabled {
     pointer-events: none !important;
     color: var(--color-text-lighter);
+    border-color: var(--color-bg-dark);
 
     svg {
       color: var(--color-text-lighter);

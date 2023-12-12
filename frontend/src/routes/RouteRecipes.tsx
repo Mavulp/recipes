@@ -1,7 +1,6 @@
 import { Await, Link, defer, useLoaderData } from 'react-router-dom'
-import { Suspense, useMemo, useRef } from 'react'
+import { Suspense, useMemo, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import type { Recipe } from '../types/Recipe'
 import { recipes } from '../api/router'
 import { SimpleLoading } from '../components/loading/SimpleLoading'
 import { RecipeItem } from '../components/recipes/RecipeItem'
@@ -10,10 +9,11 @@ import type { RootState } from '../store'
 import { setFilter } from '../store/filters'
 import { classes, searchInStr } from '../scripts/util'
 import useWindowPos from '../hooks/useWindowPos'
+import InputSlider from '../components/form/InputSlider'
+import type { ListRecipe } from '../types/ListRecipe'
 
 export default function RouteRecipes() {
-  // TODO: this is the only way to type this as I found out
-  const { data } = useLoaderData() as { data: Recipe[] }
+  const { data } = useLoaderData() as { data: ListRecipe[] }
   return (
     <div className="route route-home">
       <h1 className="underline">All Recipes</h1>
@@ -29,11 +29,11 @@ export default function RouteRecipes() {
 }
 
 export async function routeRecipesLoader() {
-  return defer({ data: recipes.get<Recipe[]>() })
+  return defer({ data: recipes.get<ListRecipe[]>() })
 }
 
 // Child component which filters on and counts amount of articles
-function RecipeListManager({ data }: { data: Recipe[] }) {
+function RecipeListManager({ data }: { data: ListRecipe[] }) {
   const search = useSelector((state: RootState) => state.filters.search)
   const dispatch = useDispatch()
 
@@ -53,6 +53,13 @@ function RecipeListManager({ data }: { data: Recipe[] }) {
     const { bottom, height } = filtersRef.current?.getBoundingClientRect()
     return bottom + height < y
   }, [y])
+
+  // Returns the number of the most ingredients in all the recipes
+  const maxIngredients = useMemo(() => {
+    return data.sort((a, b) => a.ingredient_count > b.ingredient_count ? -1 : 1)[0].ingredient_count
+  }, [data])
+
+  const [limit, setlimit] = useState(maxIngredients)
 
   // Displays if no data are available
   if (data.length === 0) {
@@ -96,6 +103,17 @@ function RecipeListManager({ data }: { data: Recipe[] }) {
             {filteredData.length === 1 ? '' : 's'}
           </p>
         )}
+
+        <div className="flex-1"></div>
+
+        <InputSlider
+          label="Ingredients"
+          min={1}
+          max={maxIngredients}
+          value={limit}
+          setter={val => setlimit(val)}
+        />
+
       </div>
 
       <div className="recipe-list-wrap">

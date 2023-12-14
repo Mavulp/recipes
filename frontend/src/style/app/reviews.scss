@@ -17,6 +17,15 @@
     margin-bottom: 0;
   }
 
+  .review-add-prompt {
+    padding: 2em;
+    font-size: 1.6rem;
+    color: var(--color-text);
+    font-style: italic;
+    text-align: center;
+    opacity: 0.5;
+  }
+
   .review-list {
     display: block;
 

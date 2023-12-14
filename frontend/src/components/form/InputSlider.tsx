@@ -1,4 +1,4 @@
-import { useId, useState } from 'react'
+import { useId, useLayoutEffect, useRef, useState } from 'react'
 
 interface Props {
   min?: number
@@ -14,13 +14,30 @@ export default function InputSlider({ value, label, setter, ...attrs }: Props) {
   // Store the positions
   const [hovering, setHovering] = useState(false)
 
+  // Store the label width when switching values
+  const labelRef = useRef<HTMLLabelElement>(null)
+  const [labelWidth, setLabelWidth] = useState<number>()
+
+  useLayoutEffect(() => {
+    if (labelRef.current) {
+      setLabelWidth(labelRef.current.getBoundingClientRect().width)
+    }
+  })
+
   return (
     <div
       className="form-item form-slider"
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
     >
-      <label htmlFor={id} aria-label={label}>{hovering ? value : label}</label>
+      <label
+        ref={labelRef}
+        htmlFor={id}
+        aria-label={label}
+        style={{ width: labelWidth ? `${labelWidth}px` : 'auto' }}
+      >
+        {hovering ? value : label}
+      </label>
       <input
         id={id}
         name={id}

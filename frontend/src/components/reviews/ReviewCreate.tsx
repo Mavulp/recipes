@@ -4,7 +4,6 @@ import InputTextarea from '../form/InputTextarea'
 import { recipes } from '../../api/router'
 import type { Review } from '../../types/Review'
 import { classes } from '../../scripts/util'
-import Spinner from '../loading/Spinner'
 import { sanitize } from '../../scripts/review'
 import Button from '../Button'
 

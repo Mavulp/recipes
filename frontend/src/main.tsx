@@ -5,7 +5,6 @@ import {
   Outlet,
   RouterProvider,
   createBrowserRouter,
-  redirect,
   useNavigate,
 } from 'react-router-dom'
 import { Provider } from 'react-redux'

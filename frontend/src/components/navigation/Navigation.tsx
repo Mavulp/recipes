@@ -46,9 +46,9 @@ export function Navigation() {
   return (
     <header className="main-navigation">
       <div className="wrapper">
-        <div className="logo-wrap">
+        <NavLink to="/recipes" className="logo-wrap">
           <img src="/brand/logo.png" alt="" />
-        </div>
+        </NavLink>
 
         <div className="flex-1"></div>
 

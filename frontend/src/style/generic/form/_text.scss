@@ -43,16 +43,16 @@ textarea {
 
   &.search {
     input {
-      padding-left: 24px;
+      padding-left: 32px;
     }
 
     .icon-search {
       @include t();
       position: absolute;
-      bottom: 8px;
-      left: 8x;
-      font-size: 14px;
-      color: var(--color-text-lighter);
+      bottom: 6px;
+      left: 0;
+      font-size: 18px;
+      color: var(--color-text);
     }
   }
 

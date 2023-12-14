@@ -1,11 +1,11 @@
 .filters {
-  @include flex(2em);
+  @include flex(32px);
   width: 100%;
   position: sticky;
   top: 0;
   z-index: 100;
   padding: 2em;
-  
+
   &.show-border:after {
     content: "";
     display: block;
@@ -31,7 +31,7 @@
 
   .form-item {
     &.text {
-      width: 512px;
+      width: 388px;
     }
   }
 }

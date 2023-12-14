@@ -32,15 +32,9 @@ export default function IngredientForm() {
         ? <Spinner text="Gathering ingredients..." />
         : (
           <>
-            <>
-
-              {
-              options.length > 0
-                ? data.map((item, index) => (<IngredientItem key={item.ingredient_id} index={index} options={options} />))
-                : <p>TODO No ingredients available. You can add one here.</p>
-            }
-            </>
-
+            { options.length > 0
+              ? data.map((item, index) => (<IngredientItem key={item.ingredient_id} index={index} options={options} />))
+              : <p>TODO No ingredients available. You can add one here.</p>}
             <button
               className="button btn-gray btn-add"
               onClick={() => dispatch(addEmptyIngredient())}

@@ -3,6 +3,7 @@
 
   &:hover {
     input {
+
       &::-moz-range-thumb,
       &::-webkit-slider-thumb {
         background: var(--color-text);
@@ -12,31 +13,31 @@
 
   label {
     font-size: 1.4rem;
-    min-width: 80px;
+    // min-width: 80px;
     text-align: right;
   }
 
   input {
-    width: 96px;
+    width: 112px;
     background-color: var(--color-text);
     margin: 0;
     padding: 0;
-    -webkit-appearance: none;  
+    -webkit-appearance: none;
     appearance: none;
     // width: 100%; 
-    height: 1px; 
-    background: var(--color-text); 
+    height: 1px;
+    background: var(--color-text);
 
     &::-moz-range-thumb,
     &::-webkit-slider-thumb {
       @include t();
-      -webkit-appearance: none; 
+      -webkit-appearance: none;
       appearance: none;
       border-radius: 50%;
-      width: 14px; 
-      height: 14px; 
-      background: var(--color-text); 
-      cursor: pointer; 
+      width: 14px;
+      height: 14px;
+      background: var(--color-text);
+      cursor: pointer;
       border: none
     }
   }

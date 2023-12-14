@@ -9,10 +9,10 @@ import useWindowPos from '../../hooks/useWindowPos'
 import IconArrowUp from '../icons/IconArrowUp'
 
 const links = [
-  { label: 'Recipes', to: 'recipes', },
+  { label: 'Recipes', to: 'recipes' },
   { label: 'Ingredients', to: 'ingredients' },
-  { label: 'Add Recipe', to: 'create', },
-  { label: 'User', to: '', },
+  { label: 'Add Recipe', to: 'create' },
+  { label: 'User', to: '' },
 ]
 
 const root = document.querySelector(':root')!

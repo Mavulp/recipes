@@ -82,9 +82,9 @@ function RecipeListManager({ data }: { data: ListRecipe[] }) {
 
   const filteredData = useMemo(() => {
     return data.filter(res =>
-      searchInStr(res.name, search) &&
-      res.ingredient_count <= limit &&
-      (!res.work_time || res.work_time <= cookTime)
+      searchInStr(res.name, search)
+      && res.ingredient_count <= limit
+      && (!res.work_time || res.work_time <= cookTime),
     )
   }, [search, data, limit, cookTime])
 

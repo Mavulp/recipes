@@ -5,6 +5,7 @@ import {
   Outlet,
   RouterProvider,
   createBrowserRouter,
+  useLocation,
   useNavigate,
 } from 'react-router-dom'
 import { Provider } from 'react-redux'
@@ -23,7 +24,11 @@ import RouteIngredients, { routeIngredientsLoader } from './routes/RouteIngredie
 // should be placed above or bellow the <Outlet /> component
 function App() {
   const navigate = useNavigate()
-  useEffect(() => navigate('/recipes'), [])
+  const location = useLocation()
+  useEffect(() => {
+    if (location.pathname === '/')
+      navigate('/recipes')
+  })
   return (
     <>
       <Navigation />
@@ -64,7 +69,7 @@ const router = createBrowserRouter([
         path: 'ingredients',
         element: <RouteIngredients />,
         loader: routeIngredientsLoader,
-      }
+      },
     ],
   },
 ])

@@ -19,9 +19,8 @@ export default function InputSlider({ value, label, setter, ...attrs }: Props) {
   const [labelWidth, setLabelWidth] = useState<number>()
 
   useLayoutEffect(() => {
-    if (labelRef.current) {
+    if (labelRef.current)
       setLabelWidth(labelRef.current.getBoundingClientRect().width)
-    }
   })
 
   return (

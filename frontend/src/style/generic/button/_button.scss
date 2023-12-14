@@ -1,5 +1,6 @@
 @import "./button-colors";
 @import "./button-sizes";
+@import "./button-detail";
 
 .button {
   @include font(500);

@@ -1,0 +1,122 @@
+.route-ingredients {
+  h1 {
+    margin-bottom: 32px;
+  }
+
+  .ingredients-list {
+    width: 100%;
+    // max-width: var(--narrow-width);
+    // margin: 0 auto;
+
+    .list-grid {
+      @include grid(32px, 2);
+
+      &>li {
+        @include grid(32px, 128px 1fr);
+        position: relative;
+        margin-bottom: 64px;
+
+        .letter-title {
+          @include font(700);
+          display: block;
+          font-size: 8rem;
+          margin-bottom: 16px;
+          text-transform: uppercase;
+          position: sticky;
+          top: 32px;
+          width: 100%;
+          text-align: right;
+          opacity: 0.25;
+        }
+
+        .ingredient-data {
+          padding: 32px;
+
+          p {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 16px;
+          }
+
+          hr {
+            margin: 16px 0;
+          }
+
+          span {
+            font-size: 1rem;
+            position: relative;
+            color: var(--color-text-lighter);
+
+            b {
+              @include font(600);
+              color: var(--color-text-lighter);
+            }
+
+            &:not(:last-child) {
+              padding-right: 16px;
+              margin-right: 16px;
+
+              &:after {
+                content: "";
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: 1px;
+                background-color: var(--color-border);
+              }
+            }
+          }
+        }
+      }
+
+      .btn-details {
+        display: block;
+        width: 100%;
+        border-bottom: 1px solid var(--color-border);
+        cursor: pointer;
+        border: 1px solid transparent;
+        margin-bottom: -1px;
+
+        &.open {
+          border-color: var(--color-text);
+
+          &>button {
+            border-bottom-color: var(--color-text);
+            background-color: var(--color-bg-dark);
+          }
+        }
+
+        &.open>button svg,
+        &>button:hover svg {
+          visibility: visible
+        }
+
+        &>button {
+          @include flex(0, space-between);
+          width: 100%;
+          text-align: left;
+          padding: 16px 32px;
+          border-bottom: 1px solid transparent;
+
+          span {
+            @include font(400);
+            font-size: 1.8rem;
+
+          }
+
+          svg {
+            visibility: hidden;
+            font-size: 24px;
+            color: var(--color-text);
+          }
+
+          &:hover {
+            background-color: var(--color-bg-dark);
+          }
+        }
+      }
+    }
+
+  }
+}

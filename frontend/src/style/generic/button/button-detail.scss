@@ -1,0 +1,15 @@
+.btn-details {
+  &.open {
+    &>button {
+      svg {
+        transform: scaleY(-1);
+      }
+    }
+  }
+
+  .btn-detail-content {
+    @include t(0.25s);
+    max-height: 0;
+    overflow: hidden;
+  }
+}

@@ -63,8 +63,11 @@ export default function SubmitBar() {
         {loading
           ? <Spinner light={true} />
           : (
-            <>Create <IconPan /></>
-          )}
+            <>
+              Create
+              <IconPan />
+            </>
+            )}
       </button>
 
       {error && (

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import type { RecipeMetadata } from '../../types/RecipeMetadata'
-import { classes } from '../../scripts/util'
+import { clampText, classes } from '../../scripts/util'
 import DetailTime from '../detail/DetailTime'
 
 interface Props {
@@ -27,7 +27,7 @@ export function RecipeItem({ data, className = '' }: Props) {
 
       <div className="item-info">
         <strong className="recipe-name">{data.name}</strong>
-        { data.description && <p className="recipe-desc">{data.description}</p> }
+        {data.description && <p className="recipe-desc">{clampText(36, data.description)}</p>}
       </div>
     </Link>
   )

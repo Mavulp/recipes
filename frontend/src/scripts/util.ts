@@ -68,6 +68,7 @@ export function padTo2Digits(num: number) {
   return num.toString().padStart(2, '0')
 }
 
+// Formats unix timestamp into a readable date
 export function formatDate(date: number) {
   const _date = new Date(date * 1000)
 
@@ -78,11 +79,25 @@ export function formatDate(date: number) {
   })}`
 }
 
+// Generates a random color above the 30% lightness
 export function randomLightColor() {
   const h = Math.floor(Math.random() * 360)
   return `hsl(${h}deg, 50%, 30%)`
 }
 
+// Returns wether user's system contains information about their preferred theme
 export function prefersDark() {
   return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+}
+
+export function clampText(threshold: number, text: string, ellipsis: string = '...') {
+  // Split text by space
+  const split = text.split(' ')
+
+  // If split amount is less than the word threshold, simply return the original string
+  if (split.length <= threshold)
+    return text
+
+  // Truncate it by the allowed amount and join it back into string
+  return split.slice(0, threshold).join(' ').trim() + ellipsis
 }

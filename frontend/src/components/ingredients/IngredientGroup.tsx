@@ -1,4 +1,4 @@
-import { formatDate, stringify } from '../../scripts/util'
+import { formatDate } from '../../scripts/util'
 import type { Ingredient } from '../../types/Ingredient'
 import Details from '../Details'
 import IconKeyDown from '../icons/IconKeyDown'

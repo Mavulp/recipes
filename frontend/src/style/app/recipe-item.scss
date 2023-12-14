@@ -103,10 +103,12 @@
 
     .recipe-desc {
       @include font(400);
+      display: -webkit-box;
       font-size: 1.6rem;
       line-height: 1.4em;
       color: var(--color-text-light);
-      text-wrap: pretty;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
     }
   }
 }

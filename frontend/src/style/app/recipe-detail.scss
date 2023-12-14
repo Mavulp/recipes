@@ -11,11 +11,13 @@
     width: 24px;
     height: 24px;
   }
-  
+
   .recipe-container {
     padding-bottom: 64px;
     width: 100%;
-    max-width: calc(var(--max-width) / 2);
+    // max-width: calc(var(--max-width) / 2);
+    max-width: var(--small-width);
+
 
     h1 {
       font-size: 8rem;
@@ -40,16 +42,17 @@
     @include grid(0, 2fr 1fr);
     margin-bottom: 64px;
     border: 1px solid var(--color-border);
+    background-color: var(--color-bg-light);
 
     &.all-ready {
       border-color: var(--color-text);
 
-      .ingredients-list  {
+      .ingredients-list {
         border-color: var(--color-text);
       }
     }
 
-    .ingredients-list  {
+    .ingredients-list {
       padding: 2em;
       border-right: 1px solid var(--color-border);
     }

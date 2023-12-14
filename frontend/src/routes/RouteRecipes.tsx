@@ -17,7 +17,7 @@ export default function RouteRecipes() {
   return (
     <div className="route route-home">
       <h1 className="underline">Recipes</h1>
-      <Suspense fallback={<Spinner text="Loading All Recipes" />}>
+      <Suspense fallback={<Spinner text="Loading Recipes" />}>
         <Await resolve={data}>
           {data => (
             <RecipeListManager data={data} />

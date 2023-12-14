@@ -7,15 +7,15 @@
     line-height: 30px;
     color: var(--color-text);
     border-radius: var(--radius-tn);
-    background-color: var(--color-bg-light);
-    outline: 0 solid var(--color-border-light);
+    background-color: var(--color-bg);
+    outline: 0 solid var(--color-border);
 
     &:focus {
       outline-width: 1px;
     }
 
     &:hover {
-      background-color: var(--color-bg-light);
+      background-color: var(--color-bg);
     }
 
     &.is-empty {
@@ -42,8 +42,6 @@
       }
 
       &.is-selected {
-        background-color: var(--color-bg-light-hover);
-
         color: var(--color-text);
 
         &:before {

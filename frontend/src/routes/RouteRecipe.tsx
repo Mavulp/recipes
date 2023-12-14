@@ -25,7 +25,7 @@ export default function RouteRecipe() {
         <Await resolve={Promise.all([data, reviews])}>
           {([data, reviews]: [Recipe, Review[]]) => (
             <div className="route route-recipe">
-              <button className="btn-hover back" data-title-top="Back to recipes" onClick={() => navigate('/recipes')}>
+              <button className="btn-hover back" data-title-top="Go Back" onClick={() => navigate('/recipes')}>
                 <IconArrowLeft />
               </button>
 

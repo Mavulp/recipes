@@ -14,9 +14,10 @@ interface Props {
   children?: ReactNode
   selected?: string | null
   label?: string
+  noResults?: ReactNode
 }
 
-export default function SingleSelect({ options, children, selected, label }: Props) {
+export default function SingleSelect({ options, children, selected, label, noResults }: Props) {
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState<string | null>(null)
 
@@ -27,14 +28,14 @@ export default function SingleSelect({ options, children, selected, label }: Pro
   }
 
   const filterOptions = useMemo(() => {
-    return Object.keys(options)
+    return Object.entries(Object.keys(options)
       // only return keys which match the search
       .filter(key => searchInStr(key, search))
       // FOrmat back to Record
       .reduce((group, key) => {
         group[key] = options[key]
         return group
-      }, {} as Props['options'])
+      }, {} as Props['options']))
   }, [options, search])
 
   return (
@@ -50,27 +51,33 @@ export default function SingleSelect({ options, children, selected, label }: Pro
         )}
       </button>
       {
-       open
-       && (
-         <div className="dropdown">
-           {
-            Object.entries(filterOptions).map(([label, handler]) => (
-              <button
-                key={label}
-                onClick={_ => onSelect(handler)}
-                className={classes(['button', { 'is-selected': selected === label }])}
-                // This should be acceptable, we're simply appending a <b> to a string
-                dangerouslySetInnerHTML={{ __html:
-                  search
-                    ? label.replaceAll(search, `<b>${search}</b>`)
-                    : label,
-                }}
-              >
-              </button>
-            ))
-          }
-         </div>
-       )
+        open
+        && (
+          <div className="dropdown">
+            {
+              // List dropdown options
+              filterOptions.map(([label, handler]) => (
+                <button
+                  key={label}
+                  onClick={_ => onSelect(handler)}
+                  className={classes(['button', { 'is-selected': selected === label }])}
+                  // This should be acceptable, we're simply appending a <b> to a string
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      search
+                        ? label.replaceAll(search, `<b>${search}</b>`)
+                        : label,
+                  }}
+                >
+                </button>
+              ))
+            }
+            {
+              // Optionally, we can show some piece of UI if no filter options are available
+              filterOptions.length === 0 && (noResults)
+            }
+          </div>
+        )
       }
     </div>
   )

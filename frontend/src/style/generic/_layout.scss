@@ -5,6 +5,7 @@ Utility layout classes
 :root {
   --max-width: 1880px;
   --narrow-width: 1208px;
+  --small-width: 926px;
 }
 
 .flex {
@@ -13,6 +14,7 @@ Utility layout classes
   &.center {
     justify-content: center;
   }
+
   &.right {
     justify-content: flex-end;
   }

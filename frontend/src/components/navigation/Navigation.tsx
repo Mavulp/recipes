@@ -9,18 +9,10 @@ import useWindowPos from '../../hooks/useWindowPos'
 import IconArrowUp from '../icons/IconArrowUp'
 
 const links = [
-  {
-    label: 'Recipes',
-    to: 'recipes',
-  },
-  {
-    label: 'Add Recipe',
-    to: 'create',
-  },
-  {
-    label: 'User',
-    to: '',
-  },
+  { label: 'Recipes', to: 'recipes', },
+  { label: 'Ingredients', to: 'ingredients' },
+  { label: 'Add Recipe', to: 'create', },
+  { label: 'User', to: '', },
 ]
 
 const root = document.querySelector(':root')!
@@ -54,18 +46,18 @@ export function Navigation() {
 
         <nav role="navigation">
           <ul aria-label="Main Navigation" role="navigation">
-            { links.map(link => (
+            {links.map(link => (
               <li key={link.to}>
                 <NavLink to={link.to}>{link.label}</NavLink>
               </li>
-            )) }
+            ))}
           </ul>
         </nav>
 
         <div className="flex-1"></div>
 
         <Button classes="btn-hover btn-icon" data-title-bottom="Change Theme" onClick={() => setDark(!dark)}>
-          {dark ? <IconSun /> : <IconMoon /> }
+          {dark ? <IconSun /> : <IconMoon />}
         </Button>
       </div>
 

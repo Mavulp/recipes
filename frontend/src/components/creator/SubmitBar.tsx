@@ -58,16 +58,13 @@ export default function SubmitBar() {
           allReady ? 'btn-black' : 'btn-white',
         ])}
         disabled={!allReady}
-        onClick={() => submit()}
+        onClick={submit}
       >
         {loading
           ? <Spinner light={true} />
           : (
-            <>
-              Create
-              <IconPan />
-            </>
-            )}
+            <>Create <IconPan /></>
+          )}
       </button>
 
       {error && (

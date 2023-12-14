@@ -58,7 +58,7 @@
       z-index: 5;
       margin: 0;
 
-      li  {
+      li {
         // @include flex(4px);
         padding: 8px 12px;
         background-color: var(--color-bg);
@@ -100,7 +100,7 @@
       margin-bottom: 8px;
       text-wrap: pretty;
     }
-  
+
     .recipe-desc {
       @include font(400);
       font-size: 1.6rem;

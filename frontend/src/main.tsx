@@ -15,6 +15,8 @@ import { Navigation } from './components/navigation/Navigation.tsx'
 import RouteCreate from './routes/RouteCreate.tsx'
 import { store } from './store/index.ts'
 import RouteUser, { routeUserLoader } from './routes/RouteUser.tsx'
+import Footer from './components/navigation/Footer.tsx'
+import RouteIngredients, { routeIngredientsLoader } from './routes/RouteIngredients.tsx'
 
 // Root wrapper around the router views
 // Anything that should be persistent between routes,
@@ -27,6 +29,7 @@ function App() {
       <Navigation />
       <div className="container">
         <Outlet />
+        <Footer />
       </div>
     </>
   )
@@ -57,6 +60,11 @@ const router = createBrowserRouter([
         element: <RouteUser />,
         loader: routeUserLoader,
       },
+      {
+        path: 'ingredients',
+        element: <RouteIngredients />,
+        loader: routeIngredientsLoader,
+      }
     ],
   },
 ])

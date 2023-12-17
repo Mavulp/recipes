@@ -14,11 +14,8 @@ export default function RouteCreate() {
         <h2>General Informaion</h2>
         <BasicForm />
 
-        <h2>Ingredients</h2>
         <IngredientForm />
 
-        <h2>Steps</h2>
-        <p>Describe the steps which are required to make the meal. It is recommended to use simple language and not provide unrelated information.</p>
         <StepForm />
       </div>
     </div>

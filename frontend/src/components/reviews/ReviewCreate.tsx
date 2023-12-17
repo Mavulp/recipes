@@ -24,7 +24,7 @@ export default function ReviewCreate({ onCreate, recipeId }: Props) {
     return text.length > 2 && text.length <= ALLOWED_LENGTH && !loading && !error
   }, [text, loading, error])
 
-  function handle(e: FormEvent<HTMLFormElement>) {
+  function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
     if (!canSubmit)
@@ -33,7 +33,7 @@ export default function ReviewCreate({ onCreate, recipeId }: Props) {
     setLoading(true)
 
     // When review is succesfully posted, call the onCreate setter
-    recipes.post<Review>(`${recipeId}/review`, { body: { text: sanitize(text) } })
+    recipes.post<Review>(`${recipeId}/review`, { text: sanitize(text) })
       .then((res) => {
         onCreate(res)
         setText('')
@@ -48,7 +48,7 @@ export default function ReviewCreate({ onCreate, recipeId }: Props) {
 
   return (
     <div className={classes(['create-review', { 'can-submit': canSubmit }])}>
-      <form onSubmit={e => handle(e)}>
+      <form onSubmit={submit}>
         <InputTextarea
           value={text}
           setter={setText}
@@ -80,12 +80,6 @@ export default function ReviewCreate({ onCreate, recipeId }: Props) {
           >
             Post
           </Button>
-
-          {/* <button type="submit" className="" >
-            {loading
-              ? <Spinner />
-              : ('Post')}
-          </button> */}
         </div>
       </form>
     </div>

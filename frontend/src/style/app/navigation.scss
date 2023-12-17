@@ -1,13 +1,13 @@
 header.main-navigation {
   padding: 3rem 6em;
   width: 100%;
-  z-index: 10000;
+  z-index: 1000;
+  position: relative;
 
   .btn-scroll-up {
     position: fixed;
     bottom: 5%;
     right: 32px;
-    // right: calc(calc(100vw / 2) - calc(var(--narrow-width) / 2));
     z-index: 1000;
 
     svg {
@@ -15,7 +15,7 @@ header.main-navigation {
       font-size: 2rem
     }
   }
-  
+
   .wrapper {
     @include flex();
 
@@ -63,8 +63,8 @@ header.main-navigation {
         left: 0;
         width: 0;
 
-        height: 1px;
-        background-color: var(--color-text);
+        height: 2px;
+        background-color: var(--color-accent);
       }
 
       &.active,

@@ -20,13 +20,13 @@ export default function StepItem({ index }: Props) {
         placeholder="Describe the step..."
       />
 
-      <button
+      <buttonx
         className="btn-close btn-hover"
         data-title-top="Remove Step"
         onClick={() => dispatch(removeStep({ index }))}
       >
         <IconClose />
-      </button>
+      </buttonx>
     </li>
   )
 }

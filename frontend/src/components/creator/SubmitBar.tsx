@@ -31,7 +31,7 @@ export default function SubmitBar() {
     if (allReady) {
       setLoading(true)
       // Can submit
-      recipes.post<Recipe>({ body })
+      recipes.post<Recipe>(body)
         .then((result) => {
           // When recipe is posted without issues, navigate to the new recipe detail page
           navigate(`recipe/${result.id}`)
@@ -67,7 +67,7 @@ export default function SubmitBar() {
               Create
               <IconPan />
             </>
-            )}
+          )}
       </button>
 
       {error && (

@@ -3,38 +3,54 @@
     margin-bottom: 32px;
   }
 
+
+
   .ingredients-list {
     width: 100%;
-    // max-width: var(--narrow-width);
-    // margin: 0 auto;
+    max-width: var(--small-width);
+    margin: 0 auto;
+    padding-bottom: 64px;
+
+    .filters {
+      margin-bottom: 32px;
+
+      &:after {
+        right: 0;
+        left: 0;
+      }
+    }
 
     .list-grid {
-      @include grid(32px, 2);
-
       &>li {
-        @include grid(32px, 128px 1fr);
+        @include grid(32px, 96px 1fr);
         position: relative;
-        margin-bottom: 64px;
+        margin-bottom: -1px;
+        border-bottom: 1px solid var(--color-border);
+
+        &:last-of-type {
+          border-bottom: 0
+        }
 
         .letter-title {
           @include font(700);
           display: block;
-          font-size: 8rem;
-          margin-bottom: 16px;
+          font-size: 2rem;
           text-transform: uppercase;
           position: sticky;
           top: 32px;
           width: 100%;
-          text-align: right;
+          text-align: left;
           opacity: 0.25;
+          padding-top: 16px;
+          padding-left: 16px;
         }
 
         .ingredient-data {
-          padding: 32px;
+          padding: 16px;
 
           p {
             display: block;
-            font-size: 2rem;
+            font-size: 1.6rem;
             margin-bottom: 16px;
           }
 
@@ -42,14 +58,19 @@
             margin: 16px 0;
           }
 
+          div {
+            text-align: right;
+          }
+
           span {
             font-size: 1rem;
             position: relative;
-            color: var(--color-text-lighter);
+            color: var(--color-text);
+            opacity: 0.4;
 
             b {
-              @include font(600);
-              color: var(--color-text-lighter);
+              @include font(400);
+              color: var(--color-text);
             }
 
             &:not(:last-child) {
@@ -77,13 +98,15 @@
         cursor: pointer;
         border: 1px solid transparent;
         margin-bottom: -1px;
+        border-left: 1px solid var(--color-border);
 
         &.open {
-          border-color: var(--color-text);
+          // border-color: var(--color-text);
 
           &>button {
-            border-bottom-color: var(--color-text);
             background-color: var(--color-bg-dark);
+            //   border-bottom-color: var(--color-text);
+            //   background-color: var(--color-bg-dark);
           }
         }
 
@@ -118,5 +141,18 @@
       }
     }
 
+  }
+}
+
+.create-ingredient {
+  .form-item {
+    margin-bottom: -1px;
+    // margin-bottom: 16px;
+    padding: 12px;
+    border: 1px solid var(--color-border);
+
+    &:last-of-type {
+      margin-bottom: 16px;
+    }
   }
 }

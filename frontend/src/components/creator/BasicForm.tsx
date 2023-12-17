@@ -50,7 +50,7 @@ export default function BasicForm() {
         </div>
 
         <div className="small-info">
-          { NumberInputs.map(i => (
+          {NumberInputs.map(i => (
             <InputText
               key={i.key}
               value={form[i.key]}

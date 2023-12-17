@@ -13,7 +13,7 @@ interface Props {
 export default function Alert({ type = 'note', text, revokeKey }: Props) {
   const [isClosed, setIsClosed] = useLocalState(text + revokeKey, false)
 
-  const color = useCssVar(`--color-${type === 'note' ? 'accent' : type}`)
+  const [color] = useCssVar(`--color-${type === 'note' ? 'accent' : type}`)
 
   // If this specific tooltip is closed, do not open it again
   if (isClosed)

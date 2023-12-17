@@ -4,11 +4,17 @@
   header.main-navigation .logo-wrap img {
     filter: invert(100);
   }
-  
-  .alert  {
+
+  .alert {
+
     .alert-badge,
     p {
       color: var(--color-bg);
     }
+  }
+
+  .dialog-wrap:after {
+    background-color: var(--color-bg-dark);
+    opacity: 0.75;
   }
 }

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { classes, searchInStr } from '../../scripts/util'
 import InputText from './InputText'
 
@@ -38,8 +38,23 @@ export default function SingleSelect({ options, children, selected, label, noRes
       }, {} as Props['options']))
   }, [options, search])
 
+  // Click outside
+  const wrapper = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (open) {
+      function handler(e: MouseEvent) {
+        // If the current event target is not WITHIN the select wrapper, then the
+        // dropdown is closed
+        if (e.target && wrapper.current && !wrapper.current.contains(e.target as HTMLElement))
+          setOpen(false)
+      }
+      document.addEventListener('click', handler)
+      return () => document.removeEventListener('click', handler)
+    }
+  }, [open])
+
   return (
-    <div className={classes(['dropdown-wrap', { 'has-selected': !!selected }])}>
+    <div className={classes(['dropdown-wrap', { 'has-selected': !!selected }])} ref={wrapper}>
       <button onClick={() => setOpen(!open)}>
         {children || (
           <InputText
@@ -65,7 +80,7 @@ export default function SingleSelect({ options, children, selected, label, noRes
                   dangerouslySetInnerHTML={{
                     __html:
                       search
-                        ? label.replaceAll(search, `<b>${search}</b>`)
+                        ? label.toLowerCase().replaceAll(search.toLowerCase(), `<b>${search}</b>`)
                         : label,
                   }}
                 >

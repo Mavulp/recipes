@@ -4,12 +4,12 @@ Generic dropdown styling, allowing you to al
 
 .dropdown {
   // border-radius: var(--radius-sm);
-  background-color: var(--color-bg);
+  background-color: var(--color-bg-light);
   padding: 10px 0;
   z-index: 1000;
   width: 176px;
   position: absolute;
-  max-height: 512px;
+  max-height: 424px;
   overflow-y: auto;
   border: 1px solid var(--color-border);
 
@@ -25,6 +25,8 @@ Generic dropdown styling, allowing you to al
     justify-content: flex-start;
     width: 100%;
     padding: 0 16px;
+    position: relative;
+    border: none;
 
     b {
       display: inline;
@@ -33,7 +35,19 @@ Generic dropdown styling, allowing you to al
     }
 
     &:hover {
-      background-color: var(--color-bg-dark);
+      background-color: var(--color-bg-dark-hover);
+    }
+
+    &.is-selected {
+      &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background-color: var(--color-accent);
+      }
     }
 
     svg {
@@ -48,8 +62,7 @@ Generic dropdown styling, allowing you to al
   position: relative;
 
   &.has-selected {
-
-    & > button {
+    &>button {
       ::placeholder {
         color: var(--color-text) !important;
         opacity: 1 !important;

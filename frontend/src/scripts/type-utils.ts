@@ -8,3 +8,6 @@ export type ValueOf<T> = T[keyof T]
 
 // Shorthand for typing reducers
 export interface Payload<T> { payload: T }
+
+// Empty function
+export type Fn = () => void

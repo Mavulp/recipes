@@ -1,9 +1,13 @@
 import { Await, defer, useLoaderData } from 'react-router-dom'
-import { Suspense, useMemo } from 'react'
+import { Suspense, useMemo, useState } from 'react'
 import { ingredients } from '../api/router'
 import Spinner from '../components/loading/Spinner'
 import type { Ingredient } from '../types/Ingredient'
 import IngredientGroup from '../components/ingredients/IngredientGroup'
+import InputText from '../components/form/InputText'
+import { searchInStr } from '../scripts/util'
+import Button from '../components/Button'
+import CreateIngredientDialog from '../components/dialogs/CreateIngredient'
 
 // Route handler, simply fetch and display loading / data
 export default function RouteIngredients() {
@@ -27,18 +31,48 @@ export function routeIngredientsLoader() {
 }
 
 // Actual route logic and implementation
-function IngredientListManager({ data }: { data: Ingredient[] }) {
-  const grouped = Object.groupBy(
-    // First sort the data array alphabetically
-    data.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase ? 1 : -1),
-    // Group ingredients by their starting letter
-    ({ name }) => name[0].toLowerCase(),
-  )
+function IngredientListManager({ data: _data }: { data: Ingredient[] }) {
+  const [search, setSearch] = useState('')
+
+  // Store prop state in case new ingredients are added
+  const [data, setData] = useState(_data)
+
+  // This give me errors because Object.prototype.groupBy is not yet supported
+  // by typescript, but the only browser not having this is Safari and I can get
+  // past that
+  const grouped = useMemo(() => {
+    return Object.groupBy(
+      data.filter(item => searchInStr(item.name, search)),
+      // Group ingredients by their starting letter
+      ({ name }) => name[0].toLowerCase(),
+    )
+  }, [data, search])
+
+  // Adding modal for ingredients
+  const [dialog, setDialog] = useState(false)
 
   return (
     <div className="ingredients-list">
+      {dialog && (
+        <CreateIngredientDialog
+          onClose={() => setDialog(false)}
+          addIngredient={(v) => {
+            setData(v)
+            setDialog(false)
+          }}
+        />
+      )}
+
+      <div className="filters show-border">
+        <InputText search value={search} setter={v => setSearch(v)} placeholder="Search ingredient..." className="flex-1" />
+
+        <Button classes="button btn-gray" onClick={() => setDialog(true)}>
+          New Ingredient
+        </Button>
+      </div>
+
       <ul className="list-grid">
-        {Object.keys(grouped).map(key => (
+        {Object.keys(grouped).sort().map(key => (
           <IngredientGroup key={key} letter={key} items={grouped[key]} />
         ))}
       </ul>

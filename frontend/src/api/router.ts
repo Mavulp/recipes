@@ -1,18 +1,18 @@
-import { eru, setupEru } from '@dolanske/eru'
+import { eru } from '@dolanske/eru'
 
-setupEru({
-  rootPath: 'https://recipes.hivecom.net/api',
-  headers: {
-    Accept: 'application/json',
-  },
-})
+const api = eru('https://recipes.hivecom.net/api')
 
 // This is an API router for recipes
-export const recipes = eru('/recipe', {
+export const recipes = api.route('/recipe', {
   headers: {
     'Content-Type': 'application/json',
   },
 })
-export const ingredients = eru('/ingredient')
-export const user = eru('/user')
-export const reviews = eru('/review')
+
+export const ingredients = api.route('/ingredient', {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
+export const user = api.route('/user')
+export const reviews = api.route('/review')

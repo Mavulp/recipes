@@ -6,6 +6,11 @@
     position: relative;
   }
 
+  .disable-section {
+    opacity: 0.25;
+    pointer-events: none;
+  }
+
   &>h1 {
     margin-bottom: 0 !important;
   }

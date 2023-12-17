@@ -9,9 +9,12 @@ export function isNil(val: any) {
 // This will serialize vue-like class object/arrays into a string
 // So that the little cry-baby react can consume it uwu
 export type ClassObject = Record<string, boolean>
-export type Classes = string | ClassObject | Array<string | ClassObject>
+export type Classes = string | ClassObject | Array<string | ClassObject> | undefined
 
 export function classes(items: Classes) {
+  if (isNil(items))
+    return ''
+
   const classes: string[] = []
 
   function runObject(obj: ClassObject) {
@@ -101,3 +104,5 @@ export function clampText(threshold: number, text: string, ellipsis: string = '.
   // Truncate it by the allowed amount and join it back into string
   return split.slice(0, threshold).join(' ').trim() + ellipsis
 }
+
+export function noop() { }

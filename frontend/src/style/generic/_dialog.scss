@@ -1,0 +1,32 @@
+.dialog-wrap {
+  z-index: 100000;
+  position: fixed;
+  inset: 0;
+
+  &:after {
+    content: "";
+    z-index: -1;
+    background-color: var(--color-text);
+    position: absolute;
+    inset: 0;
+    opacity: 0.5;
+  }
+
+  .dialog-content {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color-bg);
+    padding: 32px;
+    min-width: 512px;
+
+    .dialog-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+    }
+  }
+}
+
+// Custom dialog styling

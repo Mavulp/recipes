@@ -17,4 +17,16 @@
     background-color: var(--color-bg-dark);
     opacity: 0.75;
   }
+
+  .submit-bar {
+    .button:not(:disabled) {
+      color: var(--color-bg);
+
+      svg {
+        color: var(--color-bg);
+
+      }
+    }
+  }
+
 }

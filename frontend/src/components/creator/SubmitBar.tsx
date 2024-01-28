@@ -55,7 +55,7 @@ export default function SubmitBar() {
       <button
         className={classes([
           'button btn-border btn-white btn-large',
-          allReady ? 'btn-black' : 'btn-white',
+          allReady ? 'btn-accent' : 'btn-white',
         ])}
         disabled={!allReady}
         onClick={submit}

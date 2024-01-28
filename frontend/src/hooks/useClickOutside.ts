@@ -7,8 +7,14 @@ export function useClickOutside(wrapper: RefObject<HTMLElement>, cb: () => void)
       cb()
   }, [wrapper])
 
+  function stop() {
+    document.removeEventListener('click', handler)
+  }
+
   useEffect(() => {
     document.addEventListener('click', handler)
-    return () => document.removeEventListener('click', handler)
+    return stop
   })
+
+  return stop
 }

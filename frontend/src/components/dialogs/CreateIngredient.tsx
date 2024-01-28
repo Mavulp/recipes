@@ -23,7 +23,6 @@ export default function CreateIngredientDialog({ onClose, addIngredient }: Props
   function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setErr(undefined)
-    setLoading(true)
 
     const form = new FormData((e.target as HTMLFormElement))
     const body = Object.fromEntries(form) as {
@@ -35,6 +34,8 @@ export default function CreateIngredientDialog({ onClose, addIngredient }: Props
       setErr(new Error('Ingredient name and description are both required.'))
       return
     }
+
+    setLoading(true)
 
     ingredients.post<Ingredient>(body)
       .then((item) => {
@@ -54,16 +55,18 @@ export default function CreateIngredientDialog({ onClose, addIngredient }: Props
       <div className="create-ingredient">
         <h3>New Ingredient</h3>
 
-        {err && <p className="error-text">{err.message}</p>}
-
         <form onSubmit={submit}>
           <InputText name="name" className="has-border" label="Name" placeholder="Ingredient name..." />
           <InputTextarea name="description" label="Description" placeholder="Ingredient description..." />
+
+          {err && <p className="error-text">{err.message}</p>}
+
           <Button loading={loading} classes="button btn-gray w-100" type="submit">
             <IconAdd />
             Create
           </Button>
         </form>
+
       </div>
     </Dialog>
   )

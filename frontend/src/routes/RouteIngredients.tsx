@@ -40,6 +40,9 @@ function IngredientListManager({ data: _data }: { data: Ingredient[] }) {
   // This give me errors because Object.prototype.groupBy is not yet supported
   // by typescript, but the only browser not having this is Safari and I can get
   // past that
+
+  // REVIEW:
+  // This will not work on safari (that's ok)
   const grouped = useMemo(() => {
     return Object.groupBy(
       data.filter(item => searchInStr(item.name, search)),
@@ -63,7 +66,7 @@ function IngredientListManager({ data: _data }: { data: Ingredient[] }) {
         />
       )}
 
-      <div className="filters show-border">
+      <div className="filters">
         <InputText search value={search} setter={v => setSearch(v)} placeholder="Search ingredient..." className="flex-1" />
 
         <Button classes="button btn-gray" onClick={() => setDialog(true)}>

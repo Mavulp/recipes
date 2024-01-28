@@ -13,6 +13,20 @@
     }
   }
 
+  &.btn-accent {
+    background-color: var(--color-accent);
+    color: var(--color-text);
+
+    svg {
+      color: var(--color-text);
+    }
+
+    &:focus,
+    &:hover {
+      background-color: var(--color-accent-dark);
+    }
+  }
+
   &.btn-gray {
     background-color: var(--color-bg-dark);
     color: var(--color-text);

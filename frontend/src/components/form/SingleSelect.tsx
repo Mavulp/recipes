@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { classes, searchInStr } from '../../scripts/util'
+import { useClickOutside } from '../../hooks/useClickOutside'
+import IconKeyDown from '../icons/IconKeyDown'
 import InputText from './InputText'
 
 /**
@@ -31,7 +33,7 @@ export default function SingleSelect({ options, children, selected, label, noRes
     return Object.entries(Object.keys(options)
       // only return keys which match the search
       .filter(key => searchInStr(key, search))
-      // FOrmat back to Record
+      // Format back to Record
       .reduce((group, key) => {
         group[key] = options[key]
         return group
@@ -40,21 +42,10 @@ export default function SingleSelect({ options, children, selected, label, noRes
 
   // Click outside
   const wrapper = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    if (open) {
-      function handler(e: MouseEvent) {
-        // If the current event target is not WITHIN the select wrapper, then the
-        // dropdown is closed
-        if (e.target && wrapper.current && !wrapper.current.contains(e.target as HTMLElement))
-          setOpen(false)
-      }
-      document.addEventListener('click', handler)
-      return () => document.removeEventListener('click', handler)
-    }
-  }, [open])
+  useClickOutside(wrapper, () => setOpen(false))
 
   return (
-    <div className={classes(['dropdown-wrap', { 'has-selected': !!selected }])} ref={wrapper}>
+    <div className={classes(['dropdown-wrap', { 'has-selected': !!selected, open }])} ref={wrapper}>
       <button onClick={() => setOpen(!open)}>
         {children || (
           <InputText
@@ -64,6 +55,7 @@ export default function SingleSelect({ options, children, selected, label, noRes
             placeholder={selected ?? 'Select an item'}
           />
         )}
+        <IconKeyDown />
       </button>
       {
         open
